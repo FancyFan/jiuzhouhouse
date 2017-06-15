@@ -7,12 +7,12 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
-    <script type="text/javascript" charset="utf-8" src="/js/jquery.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/js/jquery.js"></script>
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/supersized.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <script src="/js/html5.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/supersized.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/html5.js"></script>
     <title>Login Page</title>
 </head>
 <body>
@@ -31,9 +31,9 @@
     </form>
 </div>
 
-<script src="/js/supersized.3.2.7.min.js" ></script>
-<script src="/js/supersized-init.js" ></script>
-<script src="/js/scripts.js" ></script>
+<script src="../js/supersized.3.2.7.min.js" ></script>
+<script src="../js/supersized-init.js" ></script>
+<script src="../js/scripts.js" ></script>
 </body>
 <script type="text/javascript">
     $(function(){
@@ -62,7 +62,9 @@
                     username: username.val(),
                     password: password.val(),
                 },
+                dataType:'json',
                 success: function (result) {
+                    console.log(result);
                     if (result.flag) {
                         window.location = "adminPage.jsp";
                     } else {
