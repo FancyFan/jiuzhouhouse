@@ -18,6 +18,7 @@
 <body>
 <div class="page-container">
     <h1>登录</h1>
+    <%session.invalidate();%>
     <form>
         <input type="text" name="userName" class="username" id="userName" placeholder="请输入您的用户名！">
         <br/>
@@ -27,6 +28,7 @@
         <br/>
         <button type="button" id="loginBtn" class="submit_button">登录</button>
         <br/>
+        <button type="button" id="registerBtn" class="submit_button">注册</button>
         <%--<button type="button" id="resetBtn" class="submit_button">重置</button>--%>
     </form>
 </div>
@@ -40,6 +42,10 @@
         var username = $("#userName");
         var password = $("#passWord");
         var error = $("#loginError");
+
+        $("#registerBtn").click(function () {
+            location.href="<%=basePath%>pages/register.jsp";
+        });
 
         $("#loginBtn").click(function(){
 
@@ -62,11 +68,9 @@
                     username: username.val(),
                     password: password.val(),
                 },
-                dataType:'json',
                 success: function (result) {
-                    console.log(result);
                     if (result.flag) {
-                        window.location = "adminPage.jsp";
+                            window.location = window.location = "<%=basePath%>/admin";
                     } else {
                         error.text(result.message);
                     }
@@ -75,6 +79,7 @@
                     alert("cannot to sever");
                 }
             });
+
 
         });
     });

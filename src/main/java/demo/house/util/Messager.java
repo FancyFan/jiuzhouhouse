@@ -1,9 +1,11 @@
 package demo.house.util;
 
+import java.io.Serializable;
+
 /**
  * Created by fanzhun on 2017/6/10.
  */
-public class Messager<T> {
+public class Messager<T> implements java.io.Serializable{
 
         private static final long serialVersionUID = -5638349724614921592L;
 

@@ -8,5 +8,14 @@
         SELECT * FROM user WHERE userName = #{userName} AND pwd = #{pwd}
     </select>
 
+    <insert id="userRegister" >
+        INSERT INTO user(userName,pwd,email,phone,address,loginType) VALUES(#{userName},#{pwd},#{email},#{phone},#{address},'admin')
+    </insert>
+
+    <select id="getByUserName" resultType="User">
+        SELECT * FROM user WHERE userName=#{userName}
+    </select>
+
+
 
 </mapper>

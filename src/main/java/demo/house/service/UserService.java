@@ -6,6 +6,8 @@ import demo.house.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by fanzhun on 2017/6/10.
  */
@@ -15,18 +17,19 @@ public class UserService {
     @Autowired
     private UserDao userDao;
 
-//    @Resource(name="userDao")
-//    public void setUserDao(UserDao userDao) {
-//        this.userDao = userDao;
-//    }
 
     public User userLogin(String userName, String pwd){
         return  userDao.userLogin(userName, pwd);
     }
 
-//    public User getUserById(int userId){
-//        return userDao.getUserById(userId);
-//    }
+    public void userRegister(String userName,String pwd,String email,String address,String phone){
+        userDao.userRegister(userName,pwd,email,address,phone);
+    }
+
+    public List<User> getByUserName(String userName){
+       return userDao.getByUserName(userName);
+    }
+
 
 
 

@@ -22,9 +22,25 @@
 
 	<context:annotation-config />
 	<context:component-scan base-package="demo.house" />
+
+	<mvc:annotation-driven content-negotiation-manager="contentNegotiationManager" />
+	<bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="favorPathExtension" value="false" />
+		<property name="favorParameter" value="false" />
+		<property name="ignoreAcceptHeader" value="false" />
+		<property name="mediaTypes" >
+			<value>
+				atom=application/atom+xml
+				html=text/html
+				json=application/json
+				*=*/*
+			</value>
+		</property>
+	</bean>
+
 	<context:property-placeholder location="classpath:jdbc.properties" />
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
 		<property name="url" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
@@ -43,30 +59,6 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<mvc:annotation-driven content-negotiation-manager="contentNegotiationManager"/>
-	<bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
-		<property name="favorPathExtension" value="false" />
-	</bean>
-	<bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>
-
-	<bean id="stringConverter"
-		  class="org.springframework.http.converter.StringHttpMessageConverter">
-		<property name="supportedMediaTypes">
-			<list>
-				<value>text/plain;charset=UTF-8</value>
-			</list>
-		</property>
-	</bean>
-
-	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-		<property name="messageConverters">
-			<list>
-				<ref bean="stringConverter" />
-				<ref bean="jsonConverter" />
-			</list>
-		</property>
-	</bean>
-
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
@@ -77,14 +69,18 @@
 	</bean>
 	
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/pages/"></property>
+		<property name="prefix" value="/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
 	
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
     	<property name="dataSource" ref="dataSource"/>
  	</bean>
- 	
+
+	<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+		<property name="contentType" value="application/json"/>
+	</bean>
+
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- <property name="maxUploadSize" value="10485760" />   -->
 		<property name="defaultEncoding" value="utf-8" />

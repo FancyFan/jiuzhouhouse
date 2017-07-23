@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="demo.house.dao.HouseDao">
+
+    <select id="getAllHouse" resultType="House">
+        SELECT * FROM house
+    </select>
+
+    <select id="getHousesByToken" resultType="House">
+        SELECT * from house where houseToken=#{houseToken}
+    </select>
+
+    <select id="getHouseByUserId" resultType="House">
+        SELECT * from house WHERE useId=#{useId}
+    </select>
+    <select id="findHouseById" resultType="House">
+       SELECT * FROM house
+         where houseId = #{houseId}
+    </select>
+
+    <insert id="addHouse" parameterType="House" useGeneratedKeys="true" keyProperty="houseId">
+                INSERT INTO house(
+        saleType
+        ,houseType
+        ,area
+        ,price
+        ,communityName
+        ,address
+        ,authorTel
+        ,authorName
+        ,des
+        ,imgSrc
+        ,houseToken
+        ,useId
+        ,city
+        )
+        VALUES (#{saleType}, #{houseType},#{area}, #{price},#{communityName},
+        #{address}, #{authorTel},#{authorName},#{des},#{imgSrc},#{houseToken},#{useId},#{city})
+        </insert>
+
+    <delete id="deleteHouseById" parameterType="int">
+        DELETE FROM house
+        WHERE houseId = #{houseId}
+    </delete>
+
+    <update id="saveImgSrc">
+        UPDATE house SET imgSrc=#{1}
+        WHERE houseId=#{0}
+    </update>
+
+    <update id="updateHouseById" parameterType="House">
+        UPDATE house SET saleType=#{saleType},houseType=#{houseType},area=#{area},price=#{price},communityName=#{communityName},address=#{address},authorTel=#{authorTel},authorName=#{authorName},des=#{des},imgSrc=#{imgSrc},houseToken=#{houseToken},imgNum=#{imgNum},useId=#{useId},city=#{city} WHERE houseId=#{houseId}
+    </update>
+
+    <update id="updateHouseToken">
+        UPDATE  house SET houseToken=2 where houseId=#{houseId}
+    </update>
+
+</mapper>
