@@ -7,65 +7,35 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+%>
 <html>
 <head>
     <title>Detail</title>
     <link rel="stylesheet" type="text/css" href="../css/demo.css"/>
     <link rel="stylesheet" type="text/css" href="../css/slicebox.css"/>
     <link rel="stylesheet" type="text/css" href="../css/custom.css"/>
-    <style>
-        h1 {
-            /*margin-top: 20px;*/
-            font-family: 'Microsoft Yahei';
-            font-size: 36px;
-            color: #019157;
-        }
-
-        .detail {
-            position: absolute;
-            left: 720px;
-            top: 150px;
-            border: #8c8c8c 1px solid;
-            max-width: 500px;
-            width: 100%;
-            max-height: 500px;
-            padding: 0 50px;
-            margin: 0 auto;
-        }
-
-        #map {
-            position: absolute;
-            left: 120px;
-            top: 650px;
-            border: #8c8c8c 1px solid;
-            width: 1500px;
-            height: 500px;
-            padding: 0 50px;
-            margin: 0 auto;
-        }
-
-        #list, #dituContent {
-            position: relative;
-        }
-
-        .detail label {
-            position: relative;
-            color: #CC5522;
-            font-weight: 600;
-        }
-    </style>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="../js/modernizr.custom.46884.js"></script>
     <script type="text/javascript"
             src="http://api.map.baidu.com/api?v=2.0&ak=mkKoxpK14h2zsHssGZRDUyZemd062g8W"></script>
 </head>
 <body>
-<div>
+<div class="container">
     <div>
         <div>
             <h1 id="detail-title">房源信息</h1>
         </div>
         <div>
-            <div>
+            <a href="${ pageContext.request.contextPath }/pages/login.jsp" class="pull-right text-danger">注销</a>
+            <a href="<%=basePath%>/admin" class="pull-right text-info">返回</a>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 pull-left">
                 <div class="wrapper">
                     <ul id="sb-slider" class="sb-slider">
                         <li>
@@ -102,83 +72,95 @@
 
                 </div>
             </div>
-            <div class="detail">
-                <div id="detail-main">
-                    <h3>详细信息</h3>
+            <div class="col-sm-4 pull-right panel panel-info" style="top: 50px;height:400px;">
+                <div id="detail-main" class="panel-heading">
+                    <h3 class="panel-title">房屋信息</h3>
                 </div>
-                <div id="hId">
-                    <label>房屋编号</label>
-                    <div>${sessionScope.get("houseDetail").houseId}</div>
-                </div>
-                <div id="hTy">
-                    <label>发布类型</label>
-                    <div>
+                <div class="panel-body">
+                    <div style="padding-bottom: 5%">
                         <c:if test="${sessionScope.get('houseDetail').saleType eq '1'}">
-                            <td>出租</td>
+                            <div class="row">
+                                <div id="hpr1">
+                                    <label class="col-sm-3 lead"><h4>租金</h4></label>
+                                    <div class="col-sm-9 text-danger text-primary lead">
+                                        <h4>${sessionScope.get('houseDetail').price}</h4>
+                                    </div>
+                                </div>
+                            </div>
                         </c:if>
                         <c:if test="${sessionScope.get('houseDetail').saleType eq '2'}">
-                            <td>售卖</td>
+                            <div class="row">
+                                <div id="hpr2">
+                                    <label class="col-sm-2">售价</label>
+                                    <div class="col-sm-10 text-danger">${sessionScope.get('houseDetail').price}
+                                    </div>
+                                </div>
+                            </div>
                         </c:if>
                     </div>
-                </div>
-                <div id="hHt">
-                    <label>户型</label>
-                    <div>
-                        ${sessionScope.get('houseDetail').houseType}
+                    <div class="row padd">
+                        <div id="hHt">
+                            <label class="col-sm-2 ">户型</label>
+                            <div class="col-sm-3">
+                                ${sessionScope.get('houseDetail').houseType}
+                            </div>
+                        </div>
+                        <div id="hea">
+                            <label class="col-sm-4">面积（平米）</label>
+                            <div class="col-sm-3">${sessionScope.get('houseDetail').area}
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div id="hea">
-                    <label>面积（平米）</label>
-                    <div>${sessionScope.get('houseDetail').area}
+                    <div class="row padd">
+                        <div id="hcn">
+                            <label class="col-sm-4">小区</label>
+                            <div class="col-sm-8">${sessionScope.get('houseDetail').communityName}
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div id="hpr">
-                    <label>价格</label>
-                    <div>${sessionScope.get('houseDetail').price}
+                    <div class="row padd">
+                        <div id="hct">
+                            <label class="col-sm-2">城市</label>
+                            <div id="cty" class="col-sm-2">${sessionScope.get('houseDetail').city}
+                            </div>
+                        </div>
+                        <div id="had">
+                            <label class="col-sm-2">地址</label>
+                            <div id="addss" class="col-sm-6">${sessionScope.get('houseDetail').address}
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div id="hcn">
-                    <label>小区</label>
-                    <div>${sessionScope.get('houseDetail').communityName}
+                    <div class="row padd">
+                        <div id="han">
+                            <label class="col-sm-2">姓名</label>
+                            <div class="col-sm-2">${sessionScope.get('houseDetail').authorName}
+                            </div>
+                        </div>
+                        <div id="hat">
+                            <label class="col-sm-3">联系电话</label>
+                            <div class="col-sm-5">${sessionScope.get('houseDetail').authorTel}
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div id="hct">
-                    <label>城市</label>
-                    <div id="cty">${sessionScope.get('houseDetail').city}
-                    </div>
-                </div>
-                <div id="had">
-                    <label>地址</label>
-                    <div id="addss">${sessionScope.get('houseDetail').address}
-                    </div>
-                </div>
-                <div id="han">
-                    <label>姓名</label>
-                    <div>${sessionScope.get('houseDetail').authorName}
-                    </div>
-                </div>
-                <div id="hat">
-                    <label>联系电话</label>
-                    <div>${sessionScope.get('houseDetail').authorTel}
-                    </div>
-                </div>
-                <div id="hde">
-                    <label>详情</label>
-                    <div>${sessionScope.get('houseDetail').des}
+                    <div id="hde" class="row padd">
+                        <label class="col-sm-2">详情</label>
+                        <div class="col-sm-10">${sessionScope.get('houseDetail').des}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="map">
-            <div style="width:500px;height:350px;border:#ccc solid 1px;" id="dituContent"></div>
-            <div id="list">
-                <div id="buttonList">
-                    <button type="button" onclick="searchMap(this)" value="公交">公交</button>
-                    <button type="button" onclick="searchMap(this)" value="学校">教育</button>
-                    <button type="button" onclick="searchMap(this)" value="银行">银行</button>
-                    <button type="button" onclick="searchMap(this)" value="医院">医疗</button>
+        <div id="map" class="row" style="top: 100px;left: 20px;border: 1px solid;position:relative;">
+            <div style="width:700px;height:350px;border:#ccc solid 1px;" id="dituContent" class="col-sm-8"></div>
+            <div id="list" class="col-sm-4">
+                <div id="buttonList" class="row">
+                    <button type="button" onclick="searchMap(this)" id="btn-buss" value="公交" class="col-sm-3">公交
+                    </button>
+                    <button type="button" onclick="searchMap(this)" value="学校" class="col-sm-3">教育</button>
+                    <button type="button" onclick="searchMap(this)" value="银行" class="col-sm-3">银行</button>
+                    <button type="button" onclick="searchMap(this)" value="医院" class="col-sm-3">医疗</button>
                 </div>
-                <div id="detail-panel"></div>
+                <div id="detail-panel" class="row pre-scrollable" style="height: 350px"></div>
             </div>
         </div>
     </div>
@@ -259,29 +241,8 @@
         })();
 
         Page.init();
-
-
-        //地图事件设置函数：
-//
-
-//        //创建InfoWindow
-//        function createInfoWindow(i) {
-//            var json = markerArr[i];
-//            var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + json.title + "</b><div class='iw_poi_content'>" + json.content + "</div>");
-//            return iw;
-//        }
-
-//        //创建一个Icon
-//        function createIcon(json) {
-//            var icon = new BMap.Icon("http://map.baidu.com/image/us_cursor.gif", new BMap.Size(json.w, json.h), {
-//                imageOffset: new BMap.Size(-json.l, -json.t),
-//                infoWindowOffset: new BMap.Size(json.lb + 5, 1),
-//                offset: new BMap.Size(json.x, json.h)
-//            })
-//            return icon;
-//        }
-
-
+        initMap();//创建和初始化地图
+        searchMap($("#btn-buss"));
     });
     function setMapEvent() {
         map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
@@ -305,38 +266,34 @@
         var ctrl_sca = new BMap.ScaleControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT});
         map.addControl(ctrl_sca);
     }
-    initMap();//创建和初始化地图
+
     function initMap() {
         createMap();//创建地图
         setMapEvent();//设置地图事件
         addMapControl();//向地图添加控件
-        //  addMarker();//向地图中添加marker
     }
 
     //创建地图函数：
     function createMap() {
         var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
-        <%--var lac=${sessionScope.get('houseDetail').address};--%>
-//        map.centerAndZoom(document.getElementById("cty").innerHTML, 12);
         var localSearch = new BMap.LocalSearch(map);
-        localSearch.setSearchCompleteCallback(function (searchResult) {
-            var poi = searchResult.getPoi(0);
-            window.point=poi.point;
-            map.centerAndZoom(poi.point, 16);
-        });
+        var geo = new BMap.Geocoder();
+        geo.getPoint(document.getElementById("addss").innerHTML, function (point) {
+            window.pointt = point;
+            console.log(point);
+            console.log("ttttt");
+            map.centerAndZoom(point, 16);
+        }, "上海");
         localSearch.search(document.getElementById("addss").innerHTML);
         window.map = map;//将map变量存储在全局
     }
     function searchMap(dom) {
+        initMap();
         var context = dom.value;
-        console.log(context);
         var local = new BMap.LocalSearch(map, {
-
             renderOptions: {map: map, panel: "detail-panel"}
-
         });
-//        local.searchInBounds(context, point);
-        local.searchNearby(context,point);
+        local.searchNearby(context, pointt, 500);
     }
 </script>
 </body>

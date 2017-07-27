@@ -22,10 +22,9 @@
     <link href="../css/chooseCity.css" rel="stylesheet">
 </head>
 <body>
-<div id="modal-add" tabindex="-1">
     <div>
         <div>
-            <h1 class="modal-title " id="add-title">添加详情</h1>
+            <h1 class="text-center " id="add-title">添加详情</h1>
         </div>
         <div>
             <form class="form-horizontal" role="form">
@@ -119,12 +118,11 @@
 
             </form>
         </div>
-        <div>
+        <div class="text-center">
             <button type="button" class="btn btn-default" onclick="quit()">取消</button>
             <button type="button" class="btn btn-success" onclick="add('<%=contextPath%>')">添加</button>
         </div>
     </div>
-</div>
 </body>
 <script type="text/javascript">
 

@@ -42,6 +42,11 @@ public class AdminService {
         return list;
     }
 
+    public List<House> getHouseListByCommunityName(String communityName) {
+        List<House> list = houseDao.getHouseListByCommunityName(communityName);
+        return list;
+    }
+
     @Transactional
     public int updateHouse(House house) throws HouseException {
 

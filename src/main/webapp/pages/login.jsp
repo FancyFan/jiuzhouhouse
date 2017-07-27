@@ -70,7 +70,7 @@
                 },
                 success: function (result) {
                     if (result.flag) {
-                            window.location = window.location = "<%=basePath%>/admin";
+                        window.location = "<%=basePath%>/admin";
                     } else {
                         error.text(result.message);
                     }

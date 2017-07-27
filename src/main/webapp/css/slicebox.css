@@ -25,6 +25,8 @@
 .sb-slider img {
 	max-width: 100%;
 	display: block;
+	width: 750px;
+	height: 350px;
 }
 
 .sb-description {

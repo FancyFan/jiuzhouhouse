@@ -27,97 +27,104 @@
     <link href="../css/chooseCity.css" rel="stylesheet">
 </head>
 <body>
-<div id="modal-add" tabindex="-1">
     <div>
         <div>
-            <h1 class="modal-title " id="add-title">修改内容</h1>
+            <h1 class="text-center" id="add-title">修改内容</h1>
         </div>
         <div>
             <form class="form-horizontal" role="form">
-                <div class="form-group">
-                    <label for="update-houseId" class="col-sm-3 control-label">房源Id</label>
-                    <div class="col-sm-7">
-                        <div class="form-control no-border no-box-shadow" id="update-houseId"></div>
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label for="update-houseId" class="col-sm-3 control-label">房源Id</label>
+                        <div class="col-sm-7">
+                            <div class="form-control no-border no-box-shadow" id="update-houseId"></div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="update-saleType" class="col-sm-3 control-label">发布类型</label>
+                        <div class="col-sm-7">
+                            <select class="form-control no-border no-box-shadow" id="update-saleType">
+                                <option value="1">出租</option>
+                                <option value="2">售卖</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="update-houseType" class="col-sm-3 control-label">户型</label>
+                        <div class="col-sm-7">
+                            <select class="form-control no-border no-box-shadow" id="update-houseType">
+                                <option value="一室一厅">一室一厅</option>
+                                <option value="两室一厅">两室一厅</option>
+                                <option value="三室一厅">三室一厅</option>
+                                <option value="四室一厅">四室一厅</option>
+                                <option value="两室两厅">两室两厅</option>
+                                <option value="三室两厅">三室两厅</option>
+                                <option value="四室两厅">四室两厅</option>
+                                <option value="别墅">别墅</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="update-saleType" class="col-sm-3 control-label">发布类型</label>
-                    <div class="col-sm-7">
-                        <select class="form-control no-border no-box-shadow" id="update-saleType">
-                            <option value="1">出租</option>
-                            <option value="2">售卖</option>
-                        </select>
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label for="update-area" class="col-sm-3 control-label">面积</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control no-border no-box-shadow" id="update-area"
+                                   placeholder="面积">
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="update-price" class="col-sm-3 control-label">价格</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control no-border no-box-shadow" id="update-price"
+                                   placeholder="价格">
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="update-community" class="col-sm-3 control-label">小区</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control no-border no-box-shadow" id="update-community"
+                                   placeholder="小区">
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="update-houseType" class="col-sm-3 control-label">户型</label>
-                    <div class="col-sm-7">
-                        <select class="form-control no-border no-box-shadow" id="update-houseType">
-                            <option value="一室一厅">一室一厅</option>
-                            <option value="两室一厅">两室一厅</option>
-                            <option value="三室一厅">三室一厅</option>
-                            <option value="四室一厅">四室一厅</option>
-                            <option value="两室两厅">两室两厅</option>
-                            <option value="三室两厅">三室两厅</option>
-                            <option value="四室两厅">四室两厅</option>
-                            <option value="别墅">别墅</option>
-                        </select>
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label for="fromcity" class="col-sm-3 control-label">城市</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control no-border no-box-shadow" id="fromcity"
+                                   placeholder="地址">
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="update-address" class="col-sm-3 control-label">地址</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control no-border no-box-shadow" id="update-address"
+                                   placeholder="地址">
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="update-area" class="col-sm-3 control-label">面积（平米）</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control no-border no-box-shadow" id="update-area"
-                               placeholder="面积">
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label for="update-user" class="col-sm-3 control-label">姓名</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control no-border no-box-shadow" id="update-user"
+                                   placeholder="姓名">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="update-price" class="col-sm-3 control-label">价格</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control no-border no-box-shadow" id="update-price"
-                               placeholder="价格">
+                    <div class="form-group col-sm-4">
+                        <label for="update-tel" class="col-sm-3 control-label">联系电话</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control no-border no-box-shadow" id="update-tel"
+                                   placeholder="联系电话">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="update-community" class="col-sm-3 control-label">小区</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control no-border no-box-shadow" id="update-community"
-                               placeholder="小区">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="fromcity" class="col-sm-3 control-label">城市</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control no-border no-box-shadow" id="fromcity"
-                               placeholder="地址">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="update-address" class="col-sm-3 control-label">地址</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control no-border no-box-shadow" id="update-address"
-                               placeholder="地址">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="update-user" class="col-sm-3 control-label">姓名</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control no-border no-box-shadow" id="update-user"
-                               placeholder="姓名">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="update-tel" class="col-sm-3 control-label">联系电话</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control no-border no-box-shadow" id="update-tel"
-                               placeholder="联系电话">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="update-des" class="col-sm-3 control-label">详情</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control no-border no-box-shadow" id="update-des"
-                               placeholder="详情">
+                    <div class="form-group col-sm-4">
+                        <label for="update-des" class="col-sm-3 control-label">详情</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control no-border no-box-shadow" id="update-des"
+                                   placeholder="详情">
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -130,12 +137,11 @@
 
             </form>
         </div>
-        <div>
+        <div class="text-center">
             <button type="button" class="btn btn-default" onclick="quit()">取消</button>
             <button type="button" class="btn btn-success" onclick="update('<%=contextPath%>')">修改</button>
         </div>
     </div>
-</div>
 </body>
 <script type="application/javascript">
     init();

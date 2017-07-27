@@ -15,6 +15,11 @@
     <select id="getHouseByUserId" resultType="House">
         SELECT * from house WHERE useId=#{useId}
     </select>
+    
+    <select id="getHouseListByCommunityName" resultType="House">
+        SELECT * FROM house where communityName=#{communityName}
+    </select>
+    
     <select id="findHouseById" resultType="House">
        SELECT * FROM house
          where houseId = #{houseId}

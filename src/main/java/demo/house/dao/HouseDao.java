@@ -28,4 +28,6 @@ public interface HouseDao {
 
     List<House> getHouseByUserId(int userId);
 
+    List<House> getHouseListByCommunityName(String communityName);
+
 }

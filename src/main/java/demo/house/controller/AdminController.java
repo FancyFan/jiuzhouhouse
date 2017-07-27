@@ -49,39 +49,39 @@ public class AdminController {
         }
     }
 
-    @RequestMapping(value = "/href/{flag}",method = RequestMethod.GET)
-    public String flag(@PathVariable("flag") int flag, HttpSession session,Model model){
-        if(session.getAttribute("jiuzhouUser") == null){
+    @RequestMapping(value = "/href/{flag}", method = RequestMethod.GET)
+    public String flag(@PathVariable("flag") int flag, HttpSession session, Model model) {
+        if (session.getAttribute("jiuzhouUser") == null) {
             return "pages/error";
         }
-        if(flag==0){
+        if (flag == 0) {
             return "pages/add";
-        }else{
-            session.setAttribute("houseId",flag);
+        } else {
+            session.setAttribute("houseId", flag);
             House house = adminService.getHouseById(flag);
 //            session.setAttribute("houseModify", house);
-            model.addAttribute("data",house);
+            model.addAttribute("data", house);
             return "pages/modify";
         }
     }
 
-    @RequestMapping(value = "/{houseId}/detail",method = RequestMethod.GET)
-    public String detail(@PathVariable("houseId") int houseId, HttpSession session){
+    @RequestMapping(value = "/{houseId}/detail", method = RequestMethod.GET)
+    public String detail(@PathVariable("houseId") int houseId, HttpSession session) {
         if (session.getAttribute("jiuzhouUser") == null)
             return "pages/error";
-        try{
+        try {
             House house = adminService.getHouseById(houseId);
             session.setAttribute("houseDetail", house);
             return "pages/detail";
-        }catch (Exception e){
+        } catch (Exception e) {
             return "pages/error";
         }
     }
 
-    @RequestMapping(value="/house/logout",method = RequestMethod.GET)
+    @RequestMapping(value = "/house/logout", method = RequestMethod.GET)
     @ResponseBody
-    public Messager logout(HttpSession session){
-        Messager result=new Messager();
+    public Messager logout(HttpSession session) {
+        Messager result = new Messager();
         System.out.println("user");
         session.removeAttribute("jiuzhouUser");
         System.out.println("logout");
@@ -122,7 +122,7 @@ public class AdminController {
 
     @RequestMapping(value = "/house/{houseId}/update", method = RequestMethod.POST)
     @ResponseBody
-    public Messager update(@PathVariable("houseId") int houseId, House house,HttpSession session) {
+    public Messager update(@PathVariable("houseId") int houseId, House house, HttpSession session) {
         if (house == null) {
             return new Messager(false, OptEnum.NULLABLE_ARGUMENT.getStateInfo());
         }
@@ -150,7 +150,7 @@ public class AdminController {
         if (house == null) {
             return new Messager(false, OptEnum.NULLABLE_ARGUMENT.getStateInfo());
         }
-        if(user==null)return new Messager(false,OptEnum.NO_LOG.getStateInfo());
+        if (user == null) return new Messager(false, OptEnum.NO_LOG.getStateInfo());
         Messager result;
         try {
             house.setHouseToken(1);
@@ -177,11 +177,11 @@ public class AdminController {
             String url = session.getServletContext().getRealPath("/") + "house";
             String path = url + "//" + pid;
             House house = adminService.getHouseById(Integer.valueOf(pid));
-            System.out.println("update"+uploadfile.length);
+            System.out.println("update" + uploadfile.length);
             File dir = new File(path);
-            if(!dir.exists()&&!dir.mkdir())return;
+            if (!dir.exists() && !dir.mkdir()) return;
             for (int i = 0; i < uploadfile.length; i++) {
-                System.out.println("update:file"+i);
+                System.out.println("update:file" + i);
                 MultipartFile file = uploadfile[i];
                 System.out.println(file);
                 String filename = file.getOriginalFilename();

@@ -39,7 +39,6 @@
                 <th></th>
                 <th></th>
                 <th></th>
-                <th></th>
             </tr>
             <c:forEach var="house" items="${houses}">
                 <tr>
