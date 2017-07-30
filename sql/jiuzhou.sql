@@ -92,3 +92,17 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2017-06-17  0:16:24
+ ALTER TABLE user ADD COLUMN phone varchar(11);
+
+ ALTER TABLE user ADD COLUMN address varchar(50);
+
+ ALTER TABLE user ADD COLUMN email varchar(50);
+
+ ALTER TABLE house ADD COLUMN houseToken int(11);
+
+ ALTER TABLE house ADD COLUMN imgNum int(3);
+
+ ALTER TABLE house ADD COLUMN useId int(11);
+
+ ALTER TABLE house ADD COLUMN city varchar(20);
+
