@@ -11,6 +11,7 @@
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -21,7 +22,7 @@
 
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Poppins:400,600" rel="stylesheet">
-    <link rel="shortcut icon" href="./js/assets/images/favicon.png" >
+    <link rel="shortcut icon" href="./img/logo.jpg" >
 
     <!-- Bootstrap -->
     <link href="./js/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -104,8 +105,7 @@
                     <span>
                         立       即       联       系
                         <br>
-                    <%--<strong>021-86688788</strong>--%>
-                        021-87878787
+                    <strong>021-86688788</strong>
                     </span>
                 </div>
             </div>
