@@ -124,7 +124,7 @@
                     <form class="form-horizontal" role="form" action="<%=contextPath%>/house/addP"
                           target="id_iframe" method="post"  enctype="multipart/form-data">
                         <div class="form-group">
-                            <label for="up-pid" class="col-sm-3 control-label">商品编号</label>
+                            <label for="up-pid" class="col-sm-3 control-label">房屋编号</label>
                             <div class="col-sm-7">
                                 <input type="text" class="form-control no-border no-box-shadow" id="up-pid"
                                        placeholder="pid" name="pid" readonly="readonly">

@@ -1,11 +1,14 @@
 package demo.house.controller;
 
 import demo.house.service.AdminService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 
 
 /**
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class IndexController {
 
+    protected final Logger logger = LoggerFactory.getLogger("order");
     //temp use
     @Autowired
     private AdminService adminService;
@@ -21,7 +25,7 @@ public class IndexController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showHome(Model model){
         model.addAttribute("hList", adminService.getAllHouse());
-        System.out.println("get all houses");
+        logger.debug("bizId={},bizType={},cancel={}",1,2,3);
         return "/pages/index";
     }
 }

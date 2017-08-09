@@ -1,0 +1,26 @@
+<configuration>
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>testFile.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="jiuzhou" class="ch.qos.logback.core.FileAppender">
+        <file>F:\idea_project\oschina\secondversion\birdie\logs\birdie\order.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %logger{36} %msg%n</pattern>
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%C] [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+        </encoder>
+    </appender>
+    <logger name="order"  level="DEBUG" additivity="false">
+        <appender-ref ref="jiuzhou"/>
+    </logger>
+    <root level="DEBUG">
+
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>
