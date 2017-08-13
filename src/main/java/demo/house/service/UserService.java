@@ -18,20 +18,17 @@ public class UserService {
     private UserDao userDao;
 
 
-    public User userLogin(String userName, String pwd){
-        return  userDao.userLogin(userName, pwd);
+    public User userLogin(String userName, String pwd) {
+        return userDao.userLogin(userName, pwd);
     }
 
-    public void userRegister(String userName,String pwd,String email,String address,String phone){
-        userDao.userRegister(userName,pwd,email,address,phone);
+    public int userRegister(User user) {
+        return userDao.userRegister(user);
     }
 
-    public List<User> getByUserName(String userName){
-       return userDao.getByUserName(userName);
+    public List<User> getByUserName(String userName) {
+        return userDao.getByUserName(userName);
     }
-
-
-
 
 
 }

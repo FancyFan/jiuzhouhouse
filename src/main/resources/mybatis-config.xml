@@ -11,6 +11,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<mappers>
 		<mapper resource="mapper/UserDaoMapper.xml"/>
 		<mapper resource="mapper/HouseDaoMapper.xml"/>
+		<mapper resource="mapper/RentHouseDaoMapper.xml"/>
+		<mapper resource="mapper/SecondHouseDaoMapper.xml"/>
 	</mappers>
 	
 </configuration>

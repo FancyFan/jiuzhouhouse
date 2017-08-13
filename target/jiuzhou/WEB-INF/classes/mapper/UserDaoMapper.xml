@@ -8,8 +8,8 @@
         SELECT * FROM user WHERE userName = #{userName} AND pwd = #{pwd}
     </select>
 
-    <insert id="userRegister" >
-        INSERT INTO user(userName,pwd,email,phone,address,loginType) VALUES(#{userName},#{pwd},#{email},#{phone},#{address},'admin')
+    <insert id="userRegister" parameterType="User" useGeneratedKeys="true" keyProperty="userId" >
+        INSERT INTO user(userName,pwd,email,phone,address,loginType) VALUES(#{userName},#{pwd},#{email},#{phone},#{address},'normal')
     </insert>
 
     <select id="getByUserName" resultType="User">

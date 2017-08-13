@@ -106,3 +106,42 @@ UNLOCK TABLES;
 
  ALTER TABLE house ADD COLUMN city varchar(20);
 
+ ALTER TABLE house ADD COLUMN county varchar(20);
+
+ALTER TABLE house ADD COLUMN province varchar(20);
+
+CREATE TABLE rentHouse (
+  `houseId` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  `saleType` int(11) DEFAULT NULL,
+  `houseType` varchar(45) DEFAULT NULL,
+  `area` float DEFAULT NULL,
+  `price` float DEFAULT NULL,
+  `communityName` varchar(45) DEFAULT NULL,
+  `address` varchar(45) DEFAULT NULL,
+  `authorTel` varchar(45) DEFAULT NULL,
+  `authorName` varchar(45) DEFAULT NULL,
+  `des` varchar(45) DEFAULT NULL,
+  `imgSrc` varchar(45) DEFAULT NULL,
+  province VARCHAR (45) DEFAULT NULL ,
+  city VARCHAR (45) DEFAULT NULL ,
+  county VARCHAR (45) DEFAULT NULL ,
+  houseToken int(2) DEFAULT NULL
+)
+
+CREATE TABLE secondHouse (
+  `houseId` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  `saleType` int(11) DEFAULT NULL,
+  `houseType` varchar(45) DEFAULT NULL,
+  `area` float DEFAULT NULL,
+  `price` float DEFAULT NULL,
+  `communityName` varchar(45) DEFAULT NULL,
+  `address` varchar(45) DEFAULT NULL,
+  `authorTel` varchar(45) DEFAULT NULL,
+  `authorName` varchar(45) DEFAULT NULL,
+  `des` varchar(45) DEFAULT NULL,
+  `imgSrc` varchar(45) DEFAULT NULL,
+  province VARCHAR (45) DEFAULT NULL ,
+  city VARCHAR (45) DEFAULT NULL ,
+  county VARCHAR (45) DEFAULT NULL ,
+  houseToken int(2) DEFAULT NULL
+)

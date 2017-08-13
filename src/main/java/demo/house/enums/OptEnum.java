@@ -19,7 +19,9 @@ public enum OptEnum {
 
     DELETE_FAIL(-3, "删除失败"),
 
-    NO_LOG(4, "请先登录");
+    NO_LOG(4, "请先登录"),
+
+    CREATE_FAIL(-4, "创建图片存放文件夹失败");
 
     private int state;
 

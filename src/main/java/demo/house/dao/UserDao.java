@@ -14,7 +14,8 @@ import java.util.List;
 public interface UserDao {
     User userLogin(@Param("userName") String userName, @Param("pwd") String pwd);
 
-    void userRegister(@Param("userName") String userName,@Param("pwd") String pwd,@Param("email") String email,@Param("address") String address,@Param("phone")String phone);
+    int userRegister(User user);
+
     //User getUserById(int userId);
     List<User> getByUserName(@Param("userName") String userName);
 }

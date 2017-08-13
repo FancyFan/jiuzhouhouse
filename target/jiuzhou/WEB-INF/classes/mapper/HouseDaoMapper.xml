@@ -12,17 +12,29 @@
         SELECT * from house where houseToken=#{houseToken}
     </select>
 
+    <select id="getHousesForList" resultType="House">
+        SELECT * FROM house where houseToken=2 order by houseId DESC limit #{start} ,#{end};
+    </select>
+
+    <select id="getIndexHouse" resultType="House">
+        SELECT * from house where houseToken=2 order by houseId desc limit 0,6;
+    </select>
+
     <select id="getHouseByUserId" resultType="House">
         SELECT * from house WHERE useId=#{useId}
     </select>
-    
+
     <select id="getHouseListByCommunityName" resultType="House">
         SELECT * FROM house where communityName=#{communityName}
     </select>
-    
+
     <select id="findHouseById" resultType="House">
        SELECT * FROM house
          where houseId = #{houseId}
+    </select>
+
+    <select id="searchForHouse" resultType="House">
+        SELECT * from house WHERE price BETWEEN #{minPrice} AND #{maxPrice} and area BETWEEN #{minArea} and #{maxArea} and province like #{province} and city like #{city} and county like #{county} and houseType like #{houseType} and address like #{address}
     </select>
 
     <insert id="addHouse" parameterType="House" useGeneratedKeys="true" keyProperty="houseId">
@@ -40,9 +52,11 @@
         ,houseToken
         ,useId
         ,city
+        ,province
+        ,county
         )
         VALUES (#{saleType}, #{houseType},#{area}, #{price},#{communityName},
-        #{address}, #{authorTel},#{authorName},#{des},#{imgSrc},#{houseToken},#{useId},#{city})
+        #{address}, #{authorTel},#{authorName},#{des},#{imgSrc},#{houseToken},#{useId},#{city},#{province},#{county})
         </insert>
 
     <delete id="deleteHouseById" parameterType="int">

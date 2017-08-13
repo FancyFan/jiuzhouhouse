@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="demo.house.dao.RentHouseDao">
+
+    <select id="getAllHouse" resultType="RentHouse">
+        SELECT * FROM rentHouse
+    </select>
+
+    <select id="getHousesByToken" resultType="RentHouse">
+        SELECT * from rentHouse where houseToken=#{houseToken}
+    </select>
+
+    <select id="getIndexHouse" resultType="RentHouse">
+        SELECT * from rentHouse where houseToken=2 order by houseId desc limit 0,6;
+    </select>
+
+    <select id="getHouseByUserId" resultType="RentHouse">
+        SELECT * from rentHouse WHERE useId=#{useId}
+    </select>
+
+    <select id="getHouseListByCommunityName" resultType="RentHouse">
+        SELECT * FROM rentHouse where communityName=#{communityName}
+    </select>
+
+    <select id="findHouseById" resultType="RentHouse">
+        SELECT * FROM rentHouse
+        where houseId = #{houseId}
+    </select>
+
+    <select id="searchForHouse" resultType="RentHouse">
+        SELECT * from rentHouse WHERE price BETWEEN #{minPrice} AND #{maxPrice} and area BETWEEN #{minArea} and #{maxArea} and province like #{province} and city like #{city} and county like #{county} and houseType like #{houseType} and address like #{address}
+    </select>
+
+    <insert id="addHouse" parameterType="RentHouse" useGeneratedKeys="true" keyProperty="houseId">
+        INSERT INTO rentHouse(
+        saleType
+        ,houseType
+        ,area
+        ,price
+        ,communityName
+        ,address
+        ,authorTel
+        ,authorName
+        ,des
+        ,imgSrc
+        ,houseToken
+        ,useId
+        ,city
+        ,province
+        ,county
+        )
+        VALUES (#{saleType}, #{houseType},#{area}, #{price},#{communityName},
+        #{address}, #{authorTel},#{authorName},#{des},#{imgSrc},#{houseToken},#{useId},#{city},#{province},#{county})
+    </insert>
+
+    <delete id="deleteHouseById" parameterType="int">
+        DELETE FROM rentHouse
+        WHERE houseId = #{houseId}
+    </delete>
+
+    <update id="saveImgSrc">
+        UPDATE rentHouse SET imgSrc=#{1}
+        WHERE houseId=#{0}
+    </update>
+
+    <update id="updateHouseById" parameterType="RentHouse">
+        UPDATE rentHouse SET saleType=#{saleType},houseType=#{houseType},area=#{area},price=#{price},communityName=#{communityName},address=#{address},authorTel=#{authorTel},authorName=#{authorName},des=#{des},imgSrc=#{imgSrc},houseToken=#{houseToken},imgNum=#{imgNum},useId=#{useId},city=#{city} WHERE houseId=#{houseId}
+    </update>
+
+    <update id="updateHouseToken">
+        UPDATE  rentHouse SET houseToken=2 where houseId=#{houseId}
+    </update>
+
+</mapper>
