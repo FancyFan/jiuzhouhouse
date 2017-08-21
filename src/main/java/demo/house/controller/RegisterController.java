@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import sun.plugin2.message.Message;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -21,23 +22,22 @@ public class RegisterController {
 
     @RequestMapping(value="/pages/user/register",method = RequestMethod.GET)
     @ResponseBody
-    public Messager register(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("phone") String phone, @RequestParam("email") String email, @RequestParam("address") String address){
+    public Messager register(User user,HttpSession session){
         Messager messager = new Messager();
         try{
-            List list=userService.getByUserName(username);
+            List list=userService.getByUserName(user.getUserName());
             if(list!=null&&list.size()>=1){
                 messager.setFlag(false);
                 messager.setMessage("The userName already exists！ ");
-                return messager;
+            }else{
+                userService.userRegister(user);
+                session.setAttribute("jiuzhouUser", userService.getByUserName(user.getUserName()).get(0));
+                messager.setFlag(true);
             }
-            userService.userRegister(username,password,email,address,phone);
-            messager.setFlag(true);
-            return messager;
         }catch(Exception e){
             messager.setFlag(false);
             messager.setMessage("There is something wrong!");
-            return messager;
         }
-
+        return messager;
     }
 }

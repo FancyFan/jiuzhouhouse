@@ -193,10 +193,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</ul>
 			<div class="form-info">
 				<form>
-					<input type="text" class="text" placeholder="Email Adress" required="">
-					<input type="password"  placeholder="Password" required="">
+					<input type="text" class="text" placeholder="Email Adress"id="userName" required="">
+					<input type="password"  placeholder="Password" id="passWord" required="">
 					<label class="hvr-sweep-to-right">
-						<input type="submit" value="Submit">
+						<input type="button" value="Submit" id="loginBtn">
 					</label>
 				</form>
 			</div>
@@ -280,4 +280,51 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 </div>
 </body>
+<script type="text/javascript">
+    $(function(){
+        var username = $("#userName");
+        var password = $("#passWord");
+        var error = $("#loginError");
+
+        $("#loginBtn").click(function(){
+            console.log("click");
+
+            if(username.val()==null || username.val().trim()==""){
+                error.text("User name cannot be empty.");
+                return false;
+            }
+
+            if(password.val()==null || password.val().trim()==""){
+                error.text("Password cannot be empty.");
+                return false;
+            }
+
+            $.ajax({
+                type: "GET",
+                url:  "user/login",
+                data: {
+                    username: username.val(),
+                    password: password.val(),
+                },
+				dataType:"json",
+                success: function (result) {
+                    if (result.flag) {
+                        window.location = "<%=basePath%>/admin";
+//						console.log(result.message);
+                    } else {
+//                        alert("wrong!");
+                        console.log(result.message);
+                    }
+                },
+                error: function (e) {
+//                    alert("cannot to sever");
+					console.log(e);
+                }
+            });
+
+
+        });
+    });
+
+</script>
 </html>

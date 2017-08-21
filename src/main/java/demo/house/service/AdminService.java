@@ -47,6 +47,14 @@ public class AdminService {
         return list;
     }
 
+    public List<House> getIndexHouse() {
+        return houseDao.getIndexHouse();
+    }
+
+    public List<House> searchForHouse(String province, String city, String county, String address, String houseType, Integer minArea, Integer maxArea, Integer minPrice, Integer maxPrice) {
+        return houseDao.searchForHouse(province, city, county, address, houseType, minArea, maxArea, minPrice, maxPrice);
+    }
+
     @Transactional
     public int updateHouse(House house) throws HouseException {
 
@@ -89,5 +97,9 @@ public class AdminService {
 
     public void saveImgSrc(Integer houseId, String houseImgSrc) {
         houseDao.saveImgSrc(houseId, houseImgSrc);
+    }
+
+    public List<House> getHousesForList(int start, int end) {
+        return houseDao.getHousesForList(start, end);
     }
 }

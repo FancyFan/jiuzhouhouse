@@ -49,6 +49,7 @@ public class AdminController {
         }
     }
 
+
     @RequestMapping(value = "/href/{flag}", method = RequestMethod.GET)
     public String flag(@PathVariable("flag") int flag, HttpSession session, Model model) {
         if (session.getAttribute("jiuzhouUser") == null) {
@@ -169,6 +170,50 @@ public class AdminController {
         return result;
     }
 
+    @RequestMapping(value = "/house/addAll", method = RequestMethod.POST)
+    @ResponseBody
+    public Messager addAll(House house,@RequestParam(required = false) MultipartFile[] uploadfile,HttpSession session){
+        User user = (User) session.getAttribute("jiuzhouUser");
+        if (house == null) return new Messager(false, OptEnum.NULLABLE_ARGUMENT.getStateInfo());
+        if (user == null) return new Messager(false, OptEnum.NO_LOG.getStateInfo());
+        Messager result;
+        try {
+            house.setHouseToken(1);
+            house.setUseId(user.getUserId());
+            int addHouseCount = adminService.addHouse(house);
+            if (addHouseCount > 0) {
+//                String url = session.getServletContext().getRealPath("/") + "house";
+//                String path = url + "\\" + house.getHouseId();
+                String path="D:\\house\\"+house.getHouseId();
+                File dir = new File(path);
+                if (!dir.exists() && !dir.mkdir()) return new Messager(false,OptEnum.CREATE_FAIL.getStateInfo());
+                System.out.println(path);
+                for (int i = 0; i < uploadfile.length; i++) {
+                    System.out.println("update:file" + i);
+                    MultipartFile file = uploadfile[i];
+                    String filename = file.getOriginalFilename();
+                    System.out.println(filename);
+                    int prefix = filename.lastIndexOf(".");
+                    filename = i + filename.substring(prefix);
+                    if (i==0) {
+                        house.setImgSrc("/house/"+house.getHouseId()+"/" +filename);
+                        System.out.println(filename);
+                        System.out.println(house.getImgSrc());
+                        adminService.updateHouse(house);
+                    }
+                    FileUtils.writeByteArrayToFile(new File(path, filename), file.getBytes());
+                }
+                result = new Messager(true, OptEnum.ADD_SUCCESS.getStateInfo());
+            } else {
+                result = new Messager(false, OptEnum.ADD_FAIL.getStateInfo());
+            }
+        } catch (Exception e) {
+            result = new Messager(false, e.getMessage());
+        }
+
+        return result;
+    }
+
     @RequestMapping(value = "/house/addPs", method = RequestMethod.POST)
     @ResponseBody
     public void uploadPictures(@RequestParam(required = false) MultipartFile[] uploadfile, final HttpServletRequest request, HttpSession session) {
@@ -197,43 +242,6 @@ public class AdminController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @RequestMapping(value = "/house/addP", method = RequestMethod.POST)
-    //@ContentType(mimeType = HttpMimeType.MULTIPART_FORM_DATA)
-    @ResponseBody
-    public Messager uploadPicture(@RequestParam(value = "uploadfile", required = false) MultipartFile[] uploadfiles,
-                                  @RequestParam(value = "pid") String pid, HttpSession session) {
-        // public Messager getPicture(@RequestParam("upload") CommonsMultipartFile file){
-//        System.out.print("get request");
-        System.out.println("pid is " + pid);
-
-        String url = session.getServletContext().getRealPath("/") + "house";
-        System.out.println(url);
-
-
-        //获取文件的名称
-        try {
-            for (int i = 0; i < uploadfiles.length; i++) {
-                MultipartFile uploadfile = uploadfiles[i];
-                String filename = uploadfile.getOriginalFilename();
-                int prefix = filename.lastIndexOf(".");
-                filename = pid + "-" + i + filename.substring(prefix);
-                String path = url;
-                FileUtils.writeByteArrayToFile(new File(path, filename), uploadfile.getBytes());
-                House house = adminService.getHouseById(Integer.valueOf(pid));
-                System.out.println(house.getImgSrc());
-                if (house.getImgSrc().equals("house/" + "000.jpg")) {
-                    String houseImgSrc = "house/" + filename;
-                    adminService.saveImgSrc(Integer.valueOf(pid), houseImgSrc);
-                }
-
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Messager result = new Messager(true, "receive request");
-        return result;
     }
 
 }

@@ -1,193 +1,118 @@
+<%@ page import="demo.house.model.User" %>
+<!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%
     String path = request.getContextPath();
-    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+    session.removeAttribute("jiuzhouUser");
 %>
-<!DOCTYPE html>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Login</title>
-    <link href="../bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="../js/jquery.min1.js"></script>
-    <!-- Custom Theme files -->
-    <link rel="shortcut icon" href="../img/logo.jpg" >
-    <!--menu-->
-    <script src="../js/scripts1.js"></script>
-    <link href="../css/styles.css" rel="stylesheet">
-    <!--//menu-->
-    <!--theme-style-->
-    <link href="../css/style1.css" rel="stylesheet" type="text/css" media="all" />
-    <!--//theme-style-->
+    <title>租房</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="Real Home Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Poppins:400,600" rel="stylesheet">
+    <link rel="shortcut icon" href="../img/logo.jpg">
+    <link href="../css/style1.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- favicon and touch icons -->
+    <link rel="shortcut icon" href="../js/assets/images/favicon.png">
+
+    <!-- Bootstrap -->
+    <link href="../js/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../js/plugins/slick/slick.css" rel="stylesheet">
+    <link href="../js/plugins/slick-nav/slicknav.css" rel="stylesheet">
+    <link href="../js/plugins/wow/animate.css" rel="stylesheet">
+    <link href="../js/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="../js/assets/css/theme.css" rel="stylesheet">
 </head>
-<body>
-<!--header-->
-<div class="navigation">
-    <div class="container-fluid">
-        <nav class="pull">
-            <ul>
-                <li><a  href="index.html">Home</a></li>
-                <li><a  href="about.html">About Us</a></li>
-                <li><a  href="blog.html">Blog</a></li>
-                <li><a  href="terms.html">Terms</a></li>
-                <li><a  href="privacy.html">Privacy</a></li>
-                <li><a  href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
+<body class="listing-template">
+<div id="page-loader">
+    <div class="loaders">
+        <img src="../js/assets/images/loader/3.gif" alt="First Loader">
+        <img src="../js/assets/images/loader/4.gif" alt="First Loader">
     </div>
 </div>
-
-<div class="header">
-    <div class="container">
-        <!--logo-->
-        <div class="logo">
-            <h1><a href="../">九州地产</a></h1>
-        </div>
-        <!--//logo-->
-        <div class="top-nav">
-            <ul class="right-icons">
-                <li><span ><i class="glyphicon glyphicon-phone"> </i>231-88888888</span></li>
-                <li><a  href="login.jsp"><i class="glyphicon glyphicon-user"> </i>登录</a></li>
-                <li><a class="play-icon popup-with-zoom-anim" href="#small-dialog"><i class="glyphicon glyphicon-search"> </i> </a></li>
-
-            </ul>
-            <div class="nav-icon">
-                <div class="hero fa-navicon fa-2x nav_slide_button" id="hero">
-                    <a href="#"><i class="glyphicon glyphicon-menu-hamburger"></i> </a>
+<header id="site-header">
+    <div id="site-header-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="clearfix">
+                        <button class="btn btn-warning btn-lg header-btn visible-sm pull-right">List your Property for
+                            Free
+                        </button>
+                        <p class="timing-in-header">周一-周六：9:00 - 18:00</p>
+                    </div>
                 </div>
-                <!---
-                <a href="#" class="right_bt" id="activator"><i class="glyphicon glyphicon-menu-hamburger"></i>  </a>
-            --->
-            </div>
-            <div class="clearfix"> </div>
-            <!---pop-up-box---->
-            <link href="../css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
-            <script src="../js/jquery.magnific-popup.js" type="text/javascript"></script>
-            <!---//pop-up-box---->
-            <div id="small-dialog" class="mfp-hide">
-                <!----- tabs-box ---->
-                <div class="sap_tabs">
-                    <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
-                        <ul class="resp-tabs-list">
-                            <li class="resp-tab-item " aria-controls="tab_item-0" role="tab"><span>All Homes</span></li>
-                            <li class="resp-tab-item" aria-controls="tab_item-1" role="tab"><span>For Sale</span></li>
-                            <li class="resp-tab-item" aria-controls="tab_item-2" role="tab"><span>For Rent</span></li>
-                            <div class="clearfix"></div>
-                        </ul>
-                        <div class="resp-tabs-container">
-                            <h2 class="resp-accordion resp-tab-active" role="tab" aria-controls="tab_item-0"><span class="resp-arrow"></span>All Homes</h2><div class="tab-1 resp-tab-content resp-tab-content-active" aria-labelledby="tab_item-0" style="display:block">
-                            <div class="facts">
-                                <div class="login">
-                                    <input type="text" value="Search Address, Neighborhood, City or Zip" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search Address, Neighborhood, City or Zip';}">
-                                    <input type="submit" value="">
-                                </div>
-                            </div>
-                        </div>
-                            <h2 class="resp-accordion" role="tab" aria-controls="tab_item-1"><span class="resp-arrow"></span>For Sale</h2><div class="tab-1 resp-tab-content" aria-labelledby="tab_item-1">
-                            <div class="facts">
-                                <div class="login">
-                                    <input type="text" value="Search Address, Neighborhood, City or Zip" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search Address, Neighborhood, City or Zip';}">
-                                    <input type="submit" value="">
-                                </div>
-                            </div>
-                        </div>
-                            <h2 class="resp-accordion" role="tab" aria-controls="tab_item-2"><span class="resp-arrow"></span>For Rent</h2><div class="tab-1 resp-tab-content" aria-labelledby="tab_item-2">
-                            <div class="facts">
-                                <div class="login">
-                                    <input type="text" value="Search Address, Neighborhood, City or Zip" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search Address, Neighborhood, City or Zip';}">
-                                    <input type="submit" value="">
-                                </div>
-                            </div>
-                        </div>
+                <div class="col-md-7">
+                    <div class="clearfix">
+                            <button class="btn btn-warning btn-lg header-btn hidden-sm"
+                                    onclick="location.href='${ pageContext.request.contextPath }/pages/register.jsp'">注册
+                            </button>
+                            <button class="btn btn-warning btn-lg header-btn hidden-sm"
+                                    onclick="location.href='${ pageContext.request.contextPath }/pages/login.jsp'">登录
+                            </button>
+                        <div class="language-in-header">
+                            <i class="fa fa-globe"></i>
+                            <label for="language-dropdown"> 语言:</label>
+                            <select name="currency" id="language-dropdown">
+                                <option value="CN">中文</option>
+                                <option value="AR">英语</option>
+                            </select>
                         </div>
                     </div>
-                    <script src="../js/easyResponsiveTabs.js" type="text/javascript"></script>
-                    <script type="text/javascript">
-                        $(document).ready(function () {
-                            $('#horizontalTab').easyResponsiveTabs({
-                                type: 'default', //Types: default, vertical, accordion
-                                width: 'auto', //auto or any width like 600px
-                                fit: true   // 100% fit in a container
-                            });
-                        });
-                    </script>
                 </div>
             </div>
-            <script>
-                $(document).ready(function() {
-                    $('.popup-with-zoom-anim').magnificPopup({
-                        type: 'inline',
-                        fixedContentPos: false,
-                        fixedBgPos: true,
-                        overflowY: 'auto',
-                        closeBtnInside: true,
-                        preloader: false,
-                        midClick: true,
-                        removalDelay: 300,
-                        mainClass: 'my-mfp-zoom-in'
-                    });
-
-                });
-            </script>
-
-
         </div>
-        <div class="clearfix"> </div>
     </div>
-</div>
-<!--//-->
-<div class=" banner-buying">
-    <div class=" container">
-        <h3><span>登</span>录</h3>
-        <!---->
-        <div class="menu-right">
-            <ul class="menu">
-                <li class="item1"><a href="#"> Menu<i class="glyphicon glyphicon-menu-down"> </i> </a>
-                    <ul class="cute">
-                        <li class="subitem1"><a href="buy.html">Buy </a></li>
-                        <li class="subitem2"><a href="buy.html">Rent </a></li>
-                        <li class="subitem3"><a href="buy.html">Hostels </a></li>
-                        <li class="subitem1"><a href="buy.html">Resale</a></li>
-                        <li class="subitem2"><a href="loan.html">Home Loan</a></li>
-                        <li class="subitem3"><a href="buy.html">Apartment </a></li>
-                        <li class="subitem3"><a href="dealers.html">Dealers</a></li>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <figure id="site-logo">
+                    <a href="index.html"><img src="../js/assets/images/logo.png" alt="Logo"></a>
+                </figure>
+            </div>
+            <div class="col-md-6 col-sm-8">
+                <nav id="site-nav" class="nav navbar-default">
+                    <ul class="nav navbar-nav">
+                        <li><a href="./">首页</a></li>
+                        <li><a href="${ pageContext.request.contextPath }/pages/property-listing.jsp">租房</a></li>
+                        <li><a href="single-property.html">二手房</a></li>
+                        <li><a href="gallery.html">新房</a></li>
+                        <li><a href="${ pageContext.request.contextPath }/pages/contact.jsp">联系我们</a></li>
                     </ul>
-                </li>
-            </ul>
+                </nav>
+            </div>
+            <div class="col-md-3 col-sm-4">
+                <div class="contact-in-header clearfix">
+                    <i class="fa fa-mobile"></i>
+                    <span>
+                        联系我们
+                        <br>
+                    <strong>111 222 333 444</strong>
+                    </span>
+                </div>
+            </div>
         </div>
-        <div class="clearfix"> </div>
-        <!--initiate accordion-->
-        <script type="text/javascript">
-            $(function() {
-                var menu_ul = $('.menu > li > ul'),
-                    menu_a  = $('.menu > li > a');
-                menu_ul.hide();
-                menu_a.click(function(e) {
-                    e.preventDefault();
-                    if(!$(this).hasClass('active')) {
-                        menu_a.removeClass('active');
-                        menu_ul.filter(':visible').slideUp('normal');
-                        $(this).addClass('active').next().stop(true,true).slideDown('normal');
-                    } else {
-                        $(this).removeClass('active');
-                        $(this).next().stop(true,true).slideUp('normal');
-                    }
-                });
-
-            });
-        </script>
-
+    </div>
+</header>
+<div id="site-banner" class="text-center clearfix">
+    <div class="container">
+        <h1 class="title wow slideInLeft">登录</h1>
+        <ol class="breadcrumb wow slideInRight">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="property-map-view.html">Listing</a></li>
+            <li class="active">Properties Grid</li>
+        </ol>
     </div>
 </div>
-<!--//header-->
-<!--contact-->
 <div class="login-right">
     <div class="container">
         <h3>登录</h3>
@@ -204,7 +129,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <input type="text" class="text" placeholder="账号" id="userName" required="">
                     <input type="password"  placeholder="密码" id="passWord" required="">
                     <label class="hvr-sweep-to-right">
-                        <input type="submit" value="提交" id="loginBtn">
+                        <input type="button" value="提交" id="loginBtn">
                     </label>
                 </form>
             </div>
@@ -216,78 +141,64 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
     </div>
 </div>
-<!--//contact-->
-<!--footer-->
-<div class="footer">
-    <div class="container">
-        <div class="footer-top-at">
-            <div class="col-md-3 amet-sed">
-                <h4>Our Company</h4>
-                <ul class="nav-bottom">
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="blog.html">For Sale By Owner Blog</a></li>
-                    <li><a href="mobile_app.html">Mobile</a></li>
-                    <li><a href="terms.html">Terms & Conditions</a></li>
-                    <li><a href="privacy.html">Privacy Policy</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-
-                </ul>
-            </div>
-            <div class="col-md-3 amet-sed ">
-                <h4>Work With Us</h4>
-                <ul class="nav-bottom">
-                    <li><a href="single.html">Real Estate Brokers</a></li>
-                    <li><a href="single.html">Business Development</a></li>
-                    <li><a href="single.html">Affiliate Programs</a></li>
-                    <li><a href="contact.html">Sitemap</a></li>
-                    <li><a href="career.html">Careers</a></li>
-                    <li><a href="feedback.html">Feedback</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3 amet-sed">
-                <h4>Customer Support</h4>
-                <p>Mon-Fri, 7AM-7PM </p>
-                <p>Sat-Sun, 8AM-5PM </p>
-                <p>177-869-6559</p>
-                <ul class="nav-bottom">
-                    <li><a href="#">Live Chat</a></li>
-                    <li><a href="faqs.html">Frequently Asked Questions</a></li>
-                    <li><a href="suggestion.html">Make a Suggestion</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3 amet-sed ">
-                <h4>Property Services</h4>
-                <ul class="nav-bottom">
-                    <li><a href="single.html">Residential Property</a></li>
-                    <li><a href="single.html">Commercial Property</a></li>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="register.html">Register</a></li>
-                    <li><a href="typo.html">Short Codes</a></li>
-                </ul>
-                <ul class="social">
-                    <li><a href="#"><i> </i></a></li>
-                    <li><a href="#"><i class="gmail"> </i></a></li>
-                    <li><a href="#"><i class="twitter"> </i></a></li>
-                    <li><a href="#"><i class="camera"> </i></a></li>
-                    <li><a href="#"><i class="dribble"> </i></a></li>
-                </ul>
-            </div>
-            <div class="clearfix"> </div>
-        </div>
-    </div>
-    <div class="footer-bottom">
+<footer id="footer">
+    <div class="site-footer">
         <div class="container">
-            <div class="col-md-4 footer-logo">
-                <h2><a href="index.html">REAL HOME</a></h2>
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <section class="widget about-widget clearfix">
+                        <h4 class="title hide">关于我们</h4>
+                        <a class="footer-logo" href="#"><img src="../js/assets/images/footer-logo.png"
+                                                             alt="Footer Logo"></a>
+                        <p>我们是一家租房中介服务公司，为每一位顾客真诚服务！</p>
+                        <ul class="social-icons clearfix">
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+                        </ul>
+                    </section>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <section class="widget twitter-widget clearfix">
+                        <h4 class="title">最新消息</h4>
+                        <%--<div id="twitter-feeds" class="clearfix"></div>--%>
+                    </section>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <section class="widget address-widget clearfix">
+                        <h4 class="title">联系信息</h4>
+                        <ul>
+                            <li><i class="fa fa-map-marker"></i>上海市闵行区东川路500号信息楼316室</li>
+                            <li><i class="fa fa-phone"></i> (123) 45678910</li>
+                            <li><i class="fa fa-envelope"></i> a847323482@163.com</li>
+                            <li><i class="fa fa-fax"></i> +84 962 216 601</li>
+                            <li><i class="fa fa-clock-o"></i> 周一 - 周六: 9:00 - 18:00</li>
+                        </ul>
+                    </section>
+                </div>
             </div>
-            <div class="col-md-8 footer-class">
-                <p >Copyright &copy; 2015.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
-            </div>
-            <div class="clearfix"> </div>
         </div>
     </div>
-</div>
-</body>
+</footer>
+<a href="#top" id="scroll-top"><i class="fa fa-angle-up"></i></a>
+<!-- jQuery (necessary for Bootstrap's JavaScript ../js/plugins) -->
+<script src="../js/assets/js/jquery.min.js"></script>
+<script src="../js/assets/js/jquery.migrate.js"></script>
+<script src="../js/assets/js/bootstrap.min.js"></script>
+<script src="../js/plugins/slick-nav/jquery.slicknav.min.js"></script>
+<script src="../js/plugins/slick/slick.min.js"></script>
+<script src="../js/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="../js/plugins/tweetie/tweetie.js"></script>
+<script src="../js/plugins/forms/jquery.form.min.js"></script>
+<script src="../js/plugins/forms/jquery.validate.min.js"></script>
+<script src="../js/plugins/modernizr/modernizr.custom.js"></script>
+<script src="../js/plugins/wow/wow.min.js"></script>
+<script src="../js/plugins/zoom/zoom.js"></script>
+<script src="../js/plugins/mixitup/mixitup.min.js"></script>
+<!---<script src="http://ditu.google.cn/maps/api/js?key=AIzaSyD2MtZynhsvwI2B40juK6SifR_OSyj4aBA&libraries=places"></script>--->
+<script src="../js/plugins/whats-nearby/source/WhatsNearby.js"></script>
+<script src="../js/assets/js/theme.js"></script>
 <script type="text/javascript">
     $(function(){
         var username = $("#userName");
@@ -330,4 +241,5 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     });
 
 </script>
+</body>
 </html>

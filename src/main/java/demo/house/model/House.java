@@ -14,12 +14,13 @@ public class House {
     String authorTel; //电话
     String authorName;
     String des;  //详情描述
-
+    int imgNum;
     String imgSrc = "house/000.jpg";
     int houseToken;
-    int imgNum;
     int useId;
     String city;
+    String province;
+    String county;
 
     public String getImgSrc() {
         return imgSrc;
@@ -109,27 +110,51 @@ public class House {
         this.des = des;
     }
 
-    public int getHouseToken(){
+    public int getHouseToken() {
         return houseToken;
     }
 
-    public void setHouseToken(int houseToken){
-        this.houseToken=houseToken;
+    public void setHouseToken(int houseToken) {
+        this.houseToken = houseToken;
     }
 
-    public int getImgNum(){
+    public int getUseId() {
+        return useId;
+    }
+
+    public void setUseId(int useId) {
+        this.useId = useId;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+    }
+
+    public int getImgNum() {
         return imgNum;
     }
 
-    public void setImgNum(int imgNum){
-        this.imgNum=imgNum;
+    public void setImgNum(int imgNum) {
+        this.imgNum = imgNum;
     }
-
-    public int getUseId(){return useId;}
-
-    public void setUseId(int useId){this.useId=useId;}
-
-    public String getCity(){return city;}
-
-    public void setCity(String city){this.city=city;}
 }
