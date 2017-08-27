@@ -54,7 +54,6 @@
                             <img src="../house/${sessionScope.get("houseDetail").houseId}/4.jpg" alt="image1"/>
                         </li>
                     </ul>
-
                     <div id="shadow" class="shadow"></div>
 
                     <div id="nav-arrows" class="nav-arrows">
@@ -278,13 +277,17 @@
         var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
         var localSearch = new BMap.LocalSearch(map);
         var geo = new BMap.Geocoder();
+        var icon = new BMap.Icon("../img/logo.jpg",new BMap.Size(100,100));
+        var marker ;
         geo.getPoint(document.getElementById("addss").innerHTML, function (point) {
             window.pointt = point;
             console.log(point);
             console.log("ttttt");
+           marker = new BMap.Marker(point,{icon:icon});
             map.centerAndZoom(point, 16);
         }, "上海");
         localSearch.search(document.getElementById("addss").innerHTML);
+        map.addOverlay(marker);
         window.map = map;//将map变量存储在全局
     }
     function searchMap(dom) {

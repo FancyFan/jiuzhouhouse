@@ -182,12 +182,9 @@ public class AdminController {
             house.setUseId(user.getUserId());
             int addHouseCount = adminService.addHouse(house);
             if (addHouseCount > 0) {
-//                String url = session.getServletContext().getRealPath("/") + "house";
-//                String path = url + "\\" + house.getHouseId();
                 String path="D:\\house\\"+house.getHouseId();
                 File dir = new File(path);
                 if (!dir.exists() && !dir.mkdir()) return new Messager(false,OptEnum.CREATE_FAIL.getStateInfo());
-                System.out.println(path);
                 for (int i = 0; i < uploadfile.length; i++) {
                     System.out.println("update:file" + i);
                     MultipartFile file = uploadfile[i];
@@ -199,6 +196,7 @@ public class AdminController {
                         house.setImgSrc("/house/"+house.getHouseId()+"/" +filename);
                         System.out.println(filename);
                         System.out.println(house.getImgSrc());
+                        house.setImgNum(uploadfile.length);
                         adminService.updateHouse(house);
                     }
                     FileUtils.writeByteArrayToFile(new File(path, filename), file.getBytes());

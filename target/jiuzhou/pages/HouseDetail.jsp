@@ -67,7 +67,9 @@
                                     onclick="location.href='${ pageContext.request.contextPath }/pages/login.jsp'">
                                 你好,<%= ((User) session.getAttribute("jiuzhouUser")).getUserName()%>注销
                             </button>
-                            <button class="btn btn-warning btn-lg header-btn hidden-sm" onclick="location.href='<%=basePath%>/admin'">管理界面</button>
+                            <button class="btn btn-warning btn-lg header-btn hidden-sm"
+                                    onclick="location.href='<%=basePath%>/admin'">管理界面
+                            </button>
                         </c:if>
                         <div class="language-in-header">
                             <i class="fa fa-globe"></i>
@@ -94,8 +96,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="${ pageContext.request.contextPath }/">首页</a></li>
                         <li><a href="${ pageContext.request.contextPath }/pages/property-listing.jsp">租房</a></li>
-                        <li><a href="single-property.html">二手房</a></li>
-                        <li><a href="gallery.html">新房</a></li>
+                        <li><a href="${ pageContext.request.contextPath }/house/houseList">买房</a></li>
                         <li><a href="${ pageContext.request.contextPath }/pages/contact.jsp">联系我们</a></li>
                     </ul>
                 </nav>
@@ -114,7 +115,7 @@
     </div>
 </header>
 <div id="property-single">
-    <div >
+    <div>
         <div class="slide"><img src="../js/assets/images/slider/1.jpg" alt="Slide"></div>
     </div>
     <div class="container">
@@ -125,8 +126,9 @@
                         <h4 class="pull-left">房屋图片</h4>
                     </div>
                     <div id="main-slider">
-                        <div class="slide"><img src="../js/assets/images/slider/1.jpg" alt="Slide"></div>
-                        <div class="slide"><img src="../js/assets/images/slider/4.jpg" alt="Slide"></div>
+                        <c:forEach var="img" items="${list}">
+                            <div class="slide"><img src="${img}" alt="Slide" style="height:350px;width: 100%;"></div>
+                        </c:forEach>
                     </div>
                 </section>
                 <section class="property-meta-wrapper common">
@@ -170,7 +172,8 @@
                                             <li><a href="#"><i class="fa fa-facebook-square"></i> Facebook</a></li>
                                             <li><a href="#"><i class="fa fa-twitter-square"></i> Twitter</a></li>
                                             <li><a href="#"><i class="fa fa-pinterest-square"></i> Pinterest</a></li>
-                                            <li><a href="#"><i class="fa fa-google-plus-square"></i> Google Plus</a></li>
+                                            <li><a href="#"><i class="fa fa-google-plus-square"></i> Google Plus</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -188,16 +191,17 @@
                         <div class="col-lg-5">
                             <div class="agent-contact-form">
                                 <div></div>
-                                    <input type="text" id="name" placeholder="姓名" class="required">
-                                    <input type="text" id="phone" placeholder="手机号" class="required">
-                                    <input type="text" id="email" placeholder="邮箱" class="email required">
-                                    <textarea id="message" cols="30" rows="5" class="required"
-                                              placeholder="如果您对这房子感兴趣，请留下联系方式，我们会尽快联系您！"></textarea>
-                                    <button class="btn btn-default btn-3d btn-lg" type="button" id="btnMesage" onclick="uploadMessage()"
-                                            data-hover="留言">留言
-                                    </button>
-                                    <div class="error-container"></div>
-                                    <div class="message-container"></div>
+                                <input type="text" id="name" placeholder="姓名" class="required">
+                                <input type="text" id="phone" placeholder="手机号" class="required">
+                                <input type="text" id="email" placeholder="邮箱" class="email required">
+                                <textarea id="message" cols="30" rows="5" class="required"
+                                          placeholder="如果您对这房子感兴趣，请留下联系方式，我们会尽快联系您！"></textarea>
+                                <button class="btn btn-default btn-3d btn-lg" type="button" id="btnMesage"
+                                        onclick="uploadMessage()"
+                                        data-hover="留言">留言
+                                </button>
+                                <div class="error-container"></div>
+                                <div class="message-container"></div>
                                 <%----%>
                             </div>
                         </div>
@@ -207,124 +211,64 @@
             <div class="col-lg-4 col-md-5">
                 <div id="property-sidebar">
                     <section class="widget adv-search-widget clearfix">
-                        <h5 class="title hide">Search your Place</h5>
+                        <h5 class="title hide">搜索房屋</h5>
                         <div id="advance-search-widget" class="clearfix">
                             <form action="#" id="adv-search-form">
                                 <div id="widget-tabs">
                                     <ul class="tab-list clearfix">
-                                        <li><a class="btn" href="#tab-1">Sale</a></li>
-                                        <li><a class="btn" href="#tab-2">Rent</a></li>
-                                        <li><a class="btn" href="#tab-3">office for rent</a></li>
+                                        <li><a class="btn" href="#tab-1">买房</a></li>
+                                        <li><a class="btn" href="#tab-1">租房</a></li>
                                     </ul>
                                     <div id="tab-1" class="tab-content current">
                                         <fieldset class="clearfix">
                                             <div>
-                                                <label for="main-location">All Location</label>
-                                                <select name="location" id="main-location">
-                                                    <option value="">All Cities</option>
-                                                    <option value="chicago"> Chicago</option>
-                                                    <option value="los-angeles"> Los Angeles</option>
-                                                    <option value="miami"> Miami</option>
-                                                    <option value="new-york"> New York</option>
+                                                <label for="s_province">省</label>
+                                                <select name="s_province" id="s_province"></select>
+                                            </div>
+                                            <div>
+                                                <label for="s_city">市</label>
+                                                <select name="s_city" id="s_city"></select>
+                                            </div>
+                                            <div>
+                                                <label for="s_county">县区</label>
+                                                <select name="s_county" id="s_county"></select>
+                                            </div>
+                                            <div>
+                                                <label for="address">详细地址</label>
+                                                <input type="text" placeholder="具体地址" name="address" id="address">
+                                            </div>
+                                            <div>
+                                                <label for="houseType">房型</label>
+                                                <select id="houseType" name="houseType">
+                                                    <option value="">房型</option>
+                                                    <option value="一室一厅">一室一厅</option>
+                                                    <option value="两室一厅">两室一厅</option>
+                                                    <option value="三室一厅"> 三室一厅</option>
+                                                    <option value="四室一厅"> 四室一厅</option>
+                                                    <option value="三室两厅"> 三室两厅</option>
+                                                    <option value="四室两厅"> 四室两厅</option>
+                                                    <option value="别墅"> 别墅</option>
                                                 </select>
                                             </div>
                                             <div>
-                                                <label for="property-sub-location">Sub Location</label>
-                                                <select name="sub-location" id="property-sub-location">
-                                                    <option value="">All Areas</option>
-                                                    <option value="brickell"> Brickell</option>
-                                                    <option value="brickyard"> Brickyard</option>
-                                                    <option value="bronx"> Bronx</option>
-                                                    <option value="brooklyn"> Brooklyn</option>
-                                                    <option value="coconut-grove"> Coconut Grove</option>
-                                                    <option value="downtown"> Downtown</option>
-                                                    <option value="eagle-rock"> Eagle Rock</option>
-                                                    <option value="englewood"> Englewood</option>
-                                                    <option value="hermosa"> Hermosa</option>
-                                                    <option value="hollywood"> Hollywood</option>
-                                                    <option value="lincoln-park"> Lincoln Park</option>
-                                                    <option value="manhattan"> Manhattan</option>
-                                                    <option value="midtown"> Midtown</option>
-                                                    <option value="queens"> Queens</option>
-                                                    <option value="westwood"> Westwood</option>
-                                                    <option value="wynwood"> Wynwood</option>
+                                                <label for="houseOld">房龄</label>
+                                                <select id="houseOld" name="houseOld">
+                                                    <option value="新房">新房</option>
+                                                    <option value="二手房">二手房</option>
                                                 </select>
                                             </div>
                                             <div>
-                                                <label for="property-status">All Status</label>
-                                                <select id="property-status" name="status">
-                                                    <option value="">All Status</option>
-                                                    <option value="for-rent"> For Rent</option>
-                                                    <option value="for-sale"> For Sale</option>
-                                                    <option value="foreclosures"> Foreclosures</option>
-                                                    <option value="new-costruction"> New Costruction</option>
-                                                    <option value="new-listing"> New Listing</option>
-                                                    <option value="open-house"> Open House</option>
-                                                    <option value="reduced-price"> Reduced Price</option>
-                                                    <option value="resale"> Resale</option>
-                                                </select>
+                                                <label for="minArea">最小面积</label>
+                                                <input type="text" name="minArea" id="minArea" placeholder="最小面积">
                                             </div>
                                             <div>
-                                                <label for="property-type">All Types</label>
-                                                <select id="property-type" name="type">
-                                                    <option value="">All Types</option>
-                                                    <option value="apartment"> Apartment</option>
-                                                    <option value="condo"> Condo</option>
-                                                    <option value="farm"> Farm</option>
-                                                    <option value="loft"> Loft</option>
-                                                    <option value="lot"> Lot</option>
-                                                    <option value="multi-family-home"> Multi Family Home</option>
-                                                    <option value="single-family-home"> Single Family Home</option>
-                                                    <option value="townhouse"> Townhouse</option>
-                                                    <option value="villa"> Villa</option>
-                                                </select>
+                                                <label for="maxArea">最大面积</label>
+                                                <input type="text" name="maxArea" id="maxArea" placeholder="最大面积">
                                             </div>
                                             <div>
-                                                <label for="property-beds">No.Beds</label>
-                                                <select name="bedrooms" id="property-beds">
-                                                    <option value="">Beds</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6</option>
-                                                    <option value="7">7</option>
-                                                    <option value="8">8</option>
-                                                    <option value="9">9</option>
-                                                    <option value="10">10</option>
-                                                    <option value="any">Any</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label for="property-baths">No.Baths</label>
-                                                <select name="bathrooms" id="property-baths">
-                                                    <option value="">Bathrooms</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6</option>
-                                                    <option value="7">7</option>
-                                                    <option value="8">8</option>
-                                                    <option value="9">9</option>
-                                                    <option value="10">10</option>
-                                                    <option value="any">Any</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label for="property-min-area">Min Area(sqft)</label>
-                                                <input type="text" name="min-area" id="property-min-area">
-                                            </div>
-                                            <div>
-                                                <label for="property-max-area">Max Area(sqft)</label>
-                                                <input type="text" name="max-area" id="property-max-area">
-                                            </div>
-                                            <div>
-                                                <label for="property-min-price">Min Prices</label>
-                                                <select name="min-price" id="property-min-price">
-                                                    <option value="any" selected="selected">Any</option>
+                                                <label for="minPrice">最低价</label>
+                                                <select name="minPrice" id="minPrice">
+                                                    <option value="" selected="selected">最低价</option>
                                                     <option value="1000">$1000</option>
                                                     <option value="5000">$5000</option>
                                                     <option value="10000">$10000</option>
@@ -342,145 +286,24 @@
                                                     <option value="1500000">$1500000</option>
                                                     <option value="2000000">$2000000</option>
                                                     <option value="2500000">$2500000</option>
+                                                    <option value="3000000">$3000000</option>
+                                                    <option value="4000000">$4000000</option>
                                                     <option value="5000000">$5000000</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label for="property-max-price">Max Prices</label>
-                                                <select name="max-price" id="property-max-price">
-                                                    <option value="any" selected="selected">Any</option>
-                                                    <option value="5000">$5000</option>
-                                                    <option value="10000">$10000</option>
-                                                    <option value="50000">$50000</option>
-                                                    <option value="100000">$100000</option>
-                                                    <option value="200000">$200000</option>
-                                                    <option value="300000">$300000</option>
-                                                    <option value="400000">$400000</option>
-                                                    <option value="500000">$500000</option>
-                                                    <option value="600000">$600000</option>
-                                                    <option value="700000">$700000</option>
-                                                    <option value="800000">$800000</option>
-                                                    <option value="900000">$900000</option>
-                                                    <option value="1000000">$1000000</option>
-                                                    <option value="1500000">$1500000</option>
-                                                    <option value="2000000">$2000000</option>
-                                                    <option value="2500000">$2500000</option>
-                                                    <option value="5000000">$5000000</option>
+                                                    <option value="6000000">$6000000</option>
+                                                    <option value="7000000">$7000000</option>
+                                                    <option value="8000000">$8000000</option>
+                                                    <option value="9000000">$9000000</option>
                                                     <option value="10000000">$10000000</option>
-                                                </select>
-                                            </div>
-                                        </fieldset>
-                                    </div>
-                                    <div id="tab-2" class="tab-content">
-                                        <fieldset class="clearfix">
-                                            <div>
-                                                <label for="main-location">All Location</label>
-                                                <select name="location" id="main-location">
-                                                    <option value="">All Cities</option>
-                                                    <option value="chicago"> Chicago</option>
-                                                    <option value="los-angeles"> Los Angeles</option>
-                                                    <option value="miami"> Miami</option>
-                                                    <option value="new-york"> New York</option>
+                                                    <option value="15000000">$15000000</option>
+                                                    <option value="20000000">$20000000</option>
+                                                    <option value="25000000">$25000000</option>
+                                                    <option value="50000000">$50000000</option>
                                                 </select>
                                             </div>
                                             <div>
-                                                <label for="property-sub-location">Sub Location</label>
-                                                <select name="sub-location" id="property-sub-location">
-                                                    <option value="">All Areas</option>
-                                                    <option value="brickell"> Brickell</option>
-                                                    <option value="brickyard"> Brickyard</option>
-                                                    <option value="bronx"> Bronx</option>
-                                                    <option value="brooklyn"> Brooklyn</option>
-                                                    <option value="coconut-grove"> Coconut Grove</option>
-                                                    <option value="downtown"> Downtown</option>
-                                                    <option value="eagle-rock"> Eagle Rock</option>
-                                                    <option value="englewood"> Englewood</option>
-                                                    <option value="hermosa"> Hermosa</option>
-                                                    <option value="hollywood"> Hollywood</option>
-                                                    <option value="lincoln-park"> Lincoln Park</option>
-                                                    <option value="manhattan"> Manhattan</option>
-                                                    <option value="midtown"> Midtown</option>
-                                                    <option value="queens"> Queens</option>
-                                                    <option value="westwood"> Westwood</option>
-                                                    <option value="wynwood"> Wynwood</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label for="property-status">All Status</label>
-                                                <select id="property-status" name="status">
-                                                    <option value="">All Status</option>
-                                                    <option value="for-rent"> For Rent</option>
-                                                    <option value="for-sale"> For Sale</option>
-                                                    <option value="foreclosures"> Foreclosures</option>
-                                                    <option value="new-costruction"> New Costruction</option>
-                                                    <option value="new-listing"> New Listing</option>
-                                                    <option value="open-house"> Open House</option>
-                                                    <option value="reduced-price"> Reduced Price</option>
-                                                    <option value="resale"> Resale</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label for="property-type">All Types</label>
-                                                <select id="property-type" name="type">
-                                                    <option value="">All Types</option>
-                                                    <option value="apartment"> Apartment</option>
-                                                    <option value="condo"> Condo</option>
-                                                    <option value="farm"> Farm</option>
-                                                    <option value="loft"> Loft</option>
-                                                    <option value="lot"> Lot</option>
-                                                    <option value="multi-family-home"> Multi Family Home</option>
-                                                    <option value="single-family-home"> Single Family Home</option>
-                                                    <option value="townhouse"> Townhouse</option>
-                                                    <option value="villa"> Villa</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label for="property-beds">No.Beds</label>
-                                                <select name="bedrooms" id="property-beds">
-                                                    <option value="">Beds</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6</option>
-                                                    <option value="7">7</option>
-                                                    <option value="8">8</option>
-                                                    <option value="9">9</option>
-                                                    <option value="10">10</option>
-                                                    <option value="any">Any</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label for="property-baths">No.Baths</label>
-                                                <select name="bathrooms" id="property-baths">
-                                                    <option value="">Bathrooms</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6</option>
-                                                    <option value="7">7</option>
-                                                    <option value="8">8</option>
-                                                    <option value="9">9</option>
-                                                    <option value="10">10</option>
-                                                    <option value="any">Any</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label for="property-min-area">Min Area(sqft)</label>
-                                                <input type="text" name="min-area" id="property-min-area">
-                                            </div>
-                                            <div>
-                                                <label for="property-max-area">Max Area(sqft)</label>
-                                                <input type="text" name="max-area" id="property-max-area">
-                                            </div>
-                                            <div>
-                                                <label for="property-min-price">Min Prices</label>
-                                                <select name="min-price" id="property-min-price">
-                                                    <option value="any" selected="selected">Any</option>
-                                                    <option value="1000">$1000</option>
+                                                <label for="maxPrice">最高价</label>
+                                                <select name="maxPrice" id="maxPrice">
+                                                    <option value="" selected="selected">最高价</option>
                                                     <option value="5000">$5000</option>
                                                     <option value="10000">$10000</option>
                                                     <option value="50000">$50000</option>
@@ -497,261 +320,50 @@
                                                     <option value="1500000">$1500000</option>
                                                     <option value="2000000">$2000000</option>
                                                     <option value="2500000">$2500000</option>
+                                                    <option value="3000000">$3000000</option>
+                                                    <option value="4000000">$4000000</option>
                                                     <option value="5000000">$5000000</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label for="property-max-price">Max Prices</label>
-                                                <select name="max-price" id="property-max-price">
-                                                    <option value="any" selected="selected">Any</option>
-                                                    <option value="5000">$5000</option>
-                                                    <option value="10000">$10000</option>
-                                                    <option value="50000">$50000</option>
-                                                    <option value="100000">$100000</option>
-                                                    <option value="200000">$200000</option>
-                                                    <option value="300000">$300000</option>
-                                                    <option value="400000">$400000</option>
-                                                    <option value="500000">$500000</option>
-                                                    <option value="600000">$600000</option>
-                                                    <option value="700000">$700000</option>
-                                                    <option value="800000">$800000</option>
-                                                    <option value="900000">$900000</option>
-                                                    <option value="1000000">$1000000</option>
-                                                    <option value="1500000">$1500000</option>
-                                                    <option value="2000000">$2000000</option>
-                                                    <option value="2500000">$2500000</option>
-                                                    <option value="5000000">$5000000</option>
+                                                    <option value="6000000">$6000000</option>
+                                                    <option value="7000000">$7000000</option>
+                                                    <option value="8000000">$8000000</option>
+                                                    <option value="9000000">$9000000</option>
                                                     <option value="10000000">$10000000</option>
-                                                </select>
-                                            </div>
-                                        </fieldset>
-                                    </div>
-                                    <div id="tab-3" class="tab-content">
-                                        <fieldset class="clearfix">
-                                            <div>
-                                                <label for="main-location">All Location</label>
-                                                <select name="location" id="main-location">
-                                                    <option value="">All Cities</option>
-                                                    <option value="chicago"> Chicago</option>
-                                                    <option value="los-angeles"> Los Angeles</option>
-                                                    <option value="miami"> Miami</option>
-                                                    <option value="new-york"> New York</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label for="property-sub-location">Sub Location</label>
-                                                <select name="sub-location" id="property-sub-location">
-                                                    <option value="">All Areas</option>
-                                                    <option value="brickell"> Brickell</option>
-                                                    <option value="brickyard"> Brickyard</option>
-                                                    <option value="bronx"> Bronx</option>
-                                                    <option value="brooklyn"> Brooklyn</option>
-                                                    <option value="coconut-grove"> Coconut Grove</option>
-                                                    <option value="downtown"> Downtown</option>
-                                                    <option value="eagle-rock"> Eagle Rock</option>
-                                                    <option value="englewood"> Englewood</option>
-                                                    <option value="hermosa"> Hermosa</option>
-                                                    <option value="hollywood"> Hollywood</option>
-                                                    <option value="lincoln-park"> Lincoln Park</option>
-                                                    <option value="manhattan"> Manhattan</option>
-                                                    <option value="midtown"> Midtown</option>
-                                                    <option value="queens"> Queens</option>
-                                                    <option value="westwood"> Westwood</option>
-                                                    <option value="wynwood"> Wynwood</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label for="property-status">All Status</label>
-                                                <select id="property-status" name="status">
-                                                    <option value="">All Status</option>
-                                                    <option value="for-rent"> For Rent</option>
-                                                    <option value="for-sale"> For Sale</option>
-                                                    <option value="foreclosures"> Foreclosures</option>
-                                                    <option value="new-costruction"> New Costruction</option>
-                                                    <option value="new-listing"> New Listing</option>
-                                                    <option value="open-house"> Open House</option>
-                                                    <option value="reduced-price"> Reduced Price</option>
-                                                    <option value="resale"> Resale</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label for="property-type">All Types</label>
-                                                <select id="property-type" name="type">
-                                                    <option value="">All Types</option>
-                                                    <option value="apartment"> Apartment</option>
-                                                    <option value="condo"> Condo</option>
-                                                    <option value="farm"> Farm</option>
-                                                    <option value="loft"> Loft</option>
-                                                    <option value="lot"> Lot</option>
-                                                    <option value="multi-family-home"> Multi Family Home</option>
-                                                    <option value="single-family-home"> Single Family Home</option>
-                                                    <option value="townhouse"> Townhouse</option>
-                                                    <option value="villa"> Villa</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label for="property-beds">No.Beds</label>
-                                                <select name="bedrooms" id="property-beds">
-                                                    <option value="">Beds</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6</option>
-                                                    <option value="7">7</option>
-                                                    <option value="8">8</option>
-                                                    <option value="9">9</option>
-                                                    <option value="10">10</option>
-                                                    <option value="any">Any</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label for="property-baths">No.Baths</label>
-                                                <select name="bathrooms" id="property-baths">
-                                                    <option value="">Bathrooms</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6</option>
-                                                    <option value="7">7</option>
-                                                    <option value="8">8</option>
-                                                    <option value="9">9</option>
-                                                    <option value="10">10</option>
-                                                    <option value="any">Any</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label for="property-min-area">Min Area(sqft)</label>
-                                                <input type="text" name="min-area" id="property-min-area">
-                                            </div>
-                                            <div>
-                                                <label for="property-max-area">Max Area(sqft)</label>
-                                                <input type="text" name="max-area" id="property-max-area">
-                                            </div>
-                                            <div>
-                                                <label for="property-min-price">Min Prices</label>
-                                                <select name="min-price" id="property-min-price">
-                                                    <option value="any" selected="selected">Any</option>
-                                                    <option value="1000">$1000</option>
-                                                    <option value="5000">$5000</option>
-                                                    <option value="10000">$10000</option>
-                                                    <option value="50000">$50000</option>
-                                                    <option value="100000">$100000</option>
-                                                    <option value="200000">$200000</option>
-                                                    <option value="300000">$300000</option>
-                                                    <option value="400000">$400000</option>
-                                                    <option value="500000">$500000</option>
-                                                    <option value="600000">$600000</option>
-                                                    <option value="700000">$700000</option>
-                                                    <option value="800000">$800000</option>
-                                                    <option value="900000">$900000</option>
-                                                    <option value="1000000">$1000000</option>
-                                                    <option value="1500000">$1500000</option>
-                                                    <option value="2000000">$2000000</option>
-                                                    <option value="2500000">$2500000</option>
-                                                    <option value="5000000">$5000000</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label for="property-max-price">Max Prices</label>
-                                                <select name="max-price" id="property-max-price">
-                                                    <option value="any" selected="selected">Any</option>
-                                                    <option value="5000">$5000</option>
-                                                    <option value="10000">$10000</option>
-                                                    <option value="50000">$50000</option>
-                                                    <option value="100000">$100000</option>
-                                                    <option value="200000">$200000</option>
-                                                    <option value="300000">$300000</option>
-                                                    <option value="400000">$400000</option>
-                                                    <option value="500000">$500000</option>
-                                                    <option value="600000">$600000</option>
-                                                    <option value="700000">$700000</option>
-                                                    <option value="800000">$800000</option>
-                                                    <option value="900000">$900000</option>
-                                                    <option value="1000000">$1000000</option>
-                                                    <option value="1500000">$1500000</option>
-                                                    <option value="2000000">$2000000</option>
-                                                    <option value="2500000">$2500000</option>
-                                                    <option value="5000000">$5000000</option>
-                                                    <option value="10000000">$10000000</option>
+                                                    <option value="15000000">$15000000</option>
+                                                    <option value="20000000">$20000000</option>
+                                                    <option value="25000000">$25000000</option>
+                                                    <option value="50000000">$50000000</option>
+                                                    <option value="80000000">$80000000</option>
                                                 </select>
                                             </div>
                                         </fieldset>
                                     </div>
                                     <button type="submit" class="btn btn-default btn-lg text-center btn-3d"
-                                            data-hover="Search Property">Search Property
+                                            data-hover="寻找房子">寻找房子
                                     </button>
                                 </div>
                             </form>
                         </div>
                     </section>
                     <section class="widget recent-properties clearfix">
-                        <h5 class="title">Recent Properties</h5>
-                        <div class="property clearfix">
-                            <a href="#" class="feature-image zoom"><img data-action="zoom"
-                                                                        src="../js/assets/images/property/1.jpg"
-                                                                        alt="Property Image"></a>
-                            <div class="property-contents">
-                                <h6 class="entry-title"><a href="single-property.html">Luxury family home</a></h6>
-                                <span class="btn-price">$389.000</span>
-                                <div class="property-meta clearfix">
-                                    <span><i class="fa fa-arrows-alt"></i> 3060 SqFt</span>
-                                    <span><i class="fa fa-bed"></i> 3 Beds</span>
-                                    <span><i class="fa fa-bathtub"></i> 3 Baths</span>
-                                    <span><i class="fa fa-cab"></i> Yes</span>
+                        <h5 class="title">附近房源</h5>
+                        <c:forEach items="${houseList}" var="recentHouse">
+                            <div class="property clearfix">
+                                <a href="#" class="feature-image zoom"><img data-action="zoom"
+                                                                            src="${recentHouse.imgSrc}"
+                                                                            alt="房屋图片"></a>
+                                <div class="property-contents">
+                                    <h6 class="entry-title"><a
+                                            href="${ pageContext.request.contextPath }/houseDetail/${recentHouse.houseId}">房屋详情</a>
+                                    </h6>
+                                    <span class="btn-price">"${recentHouse.price}"</span>
+                                    <div class="property-meta clearfix">
+                                        <span><i class="fa fa-arrows-alt"></i> "${recentHouse.area}"</span>
+                                        <span><i class="fa fa-bed"></i> "${recentHouse.houseType}"</span>
+                                        <span><i class="fa fa-cab"></i> Yes</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="property clearfix">
-                            <a href="#" class="feature-image zoom"><img data-action="zoom"
-                                                                        src="../js/assets/images/property/2.jpg"
-                                                                        alt="Property Image"></a>
-                            <div class="property-contents">
-                                <h6 class="entry-title"><a href="single-property.html">Luxury family home</a></h6>
-                                <span class="btn-price">$389.000</span>
-                                <div class="property-meta clearfix">
-                                    <span><i class="fa fa-arrows-alt"></i> 3060 SqFt</span>
-                                    <span><i class="fa fa-bed"></i> 3 Beds</span>
-                                    <span><i class="fa fa-bathtub"></i> 3 Baths</span>
-                                    <span><i class="fa fa-cab"></i> Yes</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="property clearfix">
-                            <a href="#" class="feature-image zoom"><img data-action="zoom"
-                                                                        src="../js/assets/images/property/3.jpg"
-                                                                        alt="Property Image"></a>
-                            <div class="property-contents">
-                                <h6 class="entry-title"><a href="single-property.html">Luxury family home</a></h6>
-                                <span class="btn-price">$389.000</span>
-                                <div class="property-meta clearfix">
-                                    <span><i class="fa fa-arrows-alt"></i> 3060 SqFt</span>
-                                    <span><i class="fa fa-bed"></i> 3 Beds</span>
-                                    <span><i class="fa fa-bathtub"></i> 3 Baths</span>
-                                    <span><i class="fa fa-cab"></i> Yes</span>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <section class="widget property-taxonomies clearfix">
-                        <h5 class="title">Recent Status</h5>
-                        <ul class="clearfix">
-                            <li><a href="#">For Rent </a><span class="pull-right">29</span></li>
-                            <li><a href="#">For Sale </a><span class="pull-right">35</span></li>
-                            <li><a href="#">Office For Rent </a><span class="pull-right">07</span></li>
-                        </ul>
-                    </section>
-                    <section class="widget property-taxonomies clearfix">
-                        <h5 class="title">Recent Type</h5>
-                        <ul class="clearfix">
-                            <li><a href="#">Apartment </a><span class="pull-right">30</span></li>
-                            <li><a href="#">Loft </a><span class="pull-right">05</span></li>
-                            <li><a href="#">Single Family Home </a><span class="pull-right">28</span></li>
-                            <li><a href="#">Vila </a><span class="pull-right">37</span></li>
-                        </ul>
+                        </c:forEach>
                     </section>
                 </div>
             </div>
@@ -854,20 +466,34 @@
         var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
         var localSearch = new BMap.LocalSearch(map);
         var geo = new BMap.Geocoder();
-        var address="${house.address}";
+        var address = "${house.address}";
+        var icon = new BMap.Icon("../img/marker.jpg", new BMap.Size(100, 100));
+        var marker;
         geo.getPoint(address, function (point) {
             window.pointt = point;
+            marker = new BMap.Marker(point, {icon: icon});
+            map.addOverlay(marker);
             map.centerAndZoom(point, 16);
         }, "上海");
         localSearch.search(address);
         window.map = map;//将map变量存储在全局
     }
-    function uploadMessage(){
-        var name=$("#name").val();
-        var phone=$("#phone").val();
-        var email=$("#email").val();
-        var message=$("#message").val();
+    function uploadMessage() {
+        var name = $("#name").val();
+        var phone = $("#phone").val();
+        var email = $("#email").val();
+        var message = $("#message").val();
     }
+</script>
+<script type="text/javascript">
+    _init_area();
+    var Gid = document.getElementById;
+    var showArea = function () {
+        Gid('show').innerHTML = "<h3>省" + Gid('s_province').value + " - 市" +
+            Gid('s_city').value + " - 县/区" +
+            Gid('s_county').value + "</h3>"
+    }
+    Gid('s_county').setAttribute('onchange', 'showArea()');
 </script>
 </body>
 </html>

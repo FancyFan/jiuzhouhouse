@@ -99,8 +99,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="${ pageContext.request.contextPath }/">首页</a></li>
                         <li><a href="${ pageContext.request.contextPath }/pages/property-listing.jsp">租房</a></li>
-                        <li><a href="single-property.html">二手房</a></li>
-                        <li><a href="gallery.html">新房</a></li>
+                        <li><a href="${ pageContext.request.contextPath }/house/houseList">买房</a></li>
                         <li><a href="${ pageContext.request.contextPath }/pages/contact.jsp">联系我们</a></li>
                     </ul>
                 </nav>
@@ -289,11 +288,13 @@
             </c:forEach>
         </div>
         <ul id="pagination" class="text-center clearfix">
-            <li class="disabled"><a href="#">Previous</a></li>
+            <li class="disabled"><a href="#">前一页</a></li>
             <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">...</a></li>
             <li><a href="#">3</a></li>
             <li><a href="#">4</a></li>
-            <li><a href="#">Next</a></li>
+            <li><a href="#">下一页</a></li>
 
         </ul>
     </div>

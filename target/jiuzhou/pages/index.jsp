@@ -49,7 +49,7 @@
                         <button class="btn btn-warning btn-lg header-btn visible-sm pull-right">List your Property for
                             Free
                         </button>
-                        <p class="timing-in-header">每周一至周日 8：00-18：00</p>
+                        <p class="timing-in-header">每周一至周日 9：00-18：00</p>
                     </div>
                 </div>
                 <div class="col-md-7">
@@ -94,8 +94,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="${ pageContext.request.contextPath }/">首页</a></li>
                         <li><a href="${ pageContext.request.contextPath }/pages/property-listing.jsp">租房</a></li>
-                        <li><a href="single-property.html">二手房</a></li>
-                        <li><a href="${ pageContext.request.contextPath }/house/houseList">新房</a></li>
+                        <li><a href="${ pageContext.request.contextPath }/house/houseList">买房</a></li>
                         <li><a href="${ pageContext.request.contextPath }/pages/contact.jsp">联系我们</a></li>
                     </ul>
                 </nav>
@@ -245,7 +244,7 @@
                     <article class="property layout-item clearfix">
                         <figure class="feature-image">
                             <a class="clearfix zoom" href="single-property.html"><img data-action="zoom"
-                                                                                      src="${house.imgSrc}"
+                                                                                       src="${house.imgSrc}"
                                                                                       alt="Property Image"
                                                                                       style="width:350px;height: 250px"></a>
                             <span class="btn btn-warning btn-sale">出租</span>
@@ -253,7 +252,7 @@
                         <div class="property-contents clearfix">
                             <header class="property-header clearfix">
                                 <div class="pull-left">
-                                    <h6 class="entry-title"><a href="<%=basePath%>/${house.houseId}/detail">查看详情</a></h6>
+                                    <h6 class="entry-title"><a href="${ pageContext.request.contextPath }/houseDetail/${house.houseId}">查看详情</a></h6>
                                     <span class="property-location"><i
                                             class="fa fa-map-marker"></i> ${house.address}</span>
                                 </div>
@@ -295,7 +294,7 @@
                             <div class="property-contents">
                                 <header class="property-header clearfix">
                                     <div class="pull-left">
-                                        <h6 class="entry-title"><a href="single-property.html">查看详情</a>
+                                        <h6 class="entry-title"><a href="${ pageContext.request.contextPath }/houseDetail/${house.houseId}">查看详情</a>
                                         </h6>
                                         <span class="property-location"><i
                                                 class="fa fa-map-marker"></i> ${house.address}</span>
